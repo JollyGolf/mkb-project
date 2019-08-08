@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+$light-blue-color: #60DAFF;
+$grey-color: #7B7B7B;
+$font-family-base: 'Montserrat';
+$font-m-size: 12pt;
+$font-s-size: 9pt;
+
+.page {
+  --background: linear-gradient(45deg, #112D36, #012936);
+}
+.bg-image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url('../../assets/bg-icon/002-heartbeat.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 5;
+}
+.column {
+  padding-top: 50px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 6;
+}
+
+.title-after-img {
+  font-weight: bold;
+  color: white;
+  font-size: $font-m-size;
+  font-family: $font-family-base;
+  padding: 2px;
+  margin-bottom: 35px;
+  align-self: center;
+}
+
+.custom-label {
+  color: $grey-color;
+  font-weight: lighter;
+  font-size: $font-s-size;
+  font-family: $font-family-base;
+  margin-left: 5px;
+}
+.custom-input {
+  --background-color: rgba(0, 0, 255, 0.5);
+  --border: none;
+  color: white;
+  font-weight: lighter;
+  font-size: $font-m-size;
+  border-bottom: 2px solid $grey-color;
+  width: 250px;
+  text-align: center;
+  font-family: $font-family-base;
+}
+.custom-input:hover {
+  border-bottom-color: $light-blue-color;
+}
+
+.button {
+  background-color: transparent;
+  width: 260px;
+  height: 50px;
+  border: 2px solid $light-blue-color;
+  border-radius: 50px;
+  color: white;
+  font-size: $font-m-size;
+  font-family: $font-family-base;
+  font-weight: bolder;
+}
+
+.button-login {
+  background: $light-blue-color;
+}
+
+.wrapper-for-input {
+  margin: 7px;
+}
+
+.wrapper-for-input:last-of-type  {
+  margin-bottom: 30px;
+}
+
+.wrapper-for-title {
+  justify-content: center;
+  width:70%;
+  height: 10%;
+  align-items: center;
+}
+
+.icon-arrow {
+  position: absolute;
+  font-weight: bolder;
+  font-size: 16pt;
+  color: white;
+}
