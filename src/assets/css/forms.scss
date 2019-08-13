@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap&subset=cyrillic');
+$light-blue-color: #60DAFF;
+$grey-color: #7B7B7B;
+$font-family-base: 'Montserrat';
+
+.page {
+  --background: linear-gradient(45deg, #112D36, #012936);
+}
+.bg-image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url('../../assets/bg-icon/002-heartbeat.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 5;
+}
+.column {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  z-index: 6;
+  padding-top: 70px;
+}
+
+.title-after-img {
+  font-weight: bold;
+  color: white;
+  font-size: 13pt;
+  font-family: $font-family-base;
+}
+
+.custom-label {
+  color: $grey-color;
+  font-weight: 500;
+  font-size: 9pt;
+  font-family: $font-family-base;
+  margin-left: 5px;
+}
+.custom-input {
+  --background-color: rgba(0, 0, 255, 0.5);
+  --border: none;
+  color: white;
+  font-weight: 400;
+  font-size: 12pt;
+  border-bottom: 2px solid $grey-color;
+  width: 250px;
+  text-align: center;
+  font-family: $font-family-base;
+}
+.custom-input:hover {
+  border-bottom-color: $light-blue-color;
+}
+.issue-button {
+  color: white;
+  font-weight: normal;
+  font-size: 9pt;
+  text-decoration: underline;
+  font-family: $font-family-base;
+}
+
+.button {
+  background-color: transparent;
+  width: 260px;
+  height: 50px;
+  border: 2px solid $light-blue-color;
+  border-radius: 50px;
+  color: white;
+  font-size: 12pt;
+  font-family: $font-family-base;
+  font-weight: bolder;
+}
+
+.button-login {
+  background: $light-blue-color;
+}
+
+.icon-arrow {
+  color: white;
+  font-weight: bolder;
+  font-size: 18pt;
+  margin-bottom: 25px;
+}
+
+.fake-icon-arrow {
+  color: transparent;
+  font-weight: bolder;
+  font-size: 18pt;
+  margin-bottom: 25px;
+}
+
+.wrapper-for-title {
+  width: 260px;
+  justify-content: space-between;
+  align-items: flex-start;
+}

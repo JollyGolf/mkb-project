@@ -1,5 +1,7 @@
 {
   "name": "mkb-project",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

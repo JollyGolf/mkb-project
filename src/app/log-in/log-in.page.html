@@ -9,16 +9,16 @@
   	<div margin>
   	  <ion-label position="fixed" class="custom-label">Номер телефона</ion-label>
   	  <ion-input class="custom-input"></ion-input>
-	</div>
+	  </div>
 
-	<div margin>
+	  <div margin>
   	  <ion-label position="fixed" class="custom-label">Введите пароль</ion-label>
-  	  <ion-input class="custom-input"></ion-input>
-	</div>
+  	  <ion-input type="password" class="custom-input"></ion-input>
+	  </div>
 
-	<div class="forget-password-button" margin>Забыли пароль?</div>
+	  <div class="issue-button" margin (click)="toggle('pass-recovery')">Забыли пароль?</div>
 
-	<button margin class="button button-login">ВХОД</button>
-	<button margin class="button button-signup">РЕГИСТРАЦИЯ</button>
+	  <button margin class="button button-login" (click)="toggle('handbook')">ВХОД</button>
+	  <button class="button button-signup" (click)="toggle('sign-up')">РЕГИСТРАЦИЯ</button>
   </ion-row>
 </ion-content>

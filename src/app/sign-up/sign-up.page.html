@@ -5,8 +5,9 @@
   	<img src="../../assets/bg-icon/icon/002-heartbeat.png" class="icon" margin>
 
   	<ion-row class="wrapper-for-title" align-items-center>
-  	  <!-- <ion-icon name="arrow-back" class="icon-arrow"></ion-icon> -->
+  	  <ion-icon name="arrow-back" class="icon-arrow" (click)="back()"></ion-icon>
   	  <div class="title-after-img" margin>Регистрация</div>
+      <ion-icon name="arrow-back" class="fake-icon-arrow"></ion-icon>
   	</ion-row>
 
   	<div class="wrapper-for-input">
@@ -21,14 +22,14 @@
 
 	<div class="wrapper-for-input">
   	  <ion-label position="fixed" class="custom-label">Пароль</ion-label>
-  	  <ion-input class="custom-input"></ion-input>
+  	  <ion-input class="custom-input" type="password"></ion-input>
 	</div>
 
 	<div class="wrapper-for-input">
   	  <ion-label position="fixed" class="custom-label">Подтвердить пароль</ion-label>
-  	  <ion-input class="custom-input"></ion-input>
+  	  <ion-input class="custom-input" type="password"></ion-input>
 	</div>
 
-	<button margin class="button button-login">ПРОДОЛЖИТЬ</button>
+	<button margin class="button button-login" (click)="toggle()">ПРОДОЛЖИТЬ</button>
   </ion-row>
  </ion-content>

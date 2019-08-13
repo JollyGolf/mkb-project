@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap&subset=cyrillic');
+
+$font-family-base: 'Montserrat';
+$grey-color: #7B7B7B;
+
+ion-toolbar {
+  height: 80px;
+  --background: #112D36;
+  color: white;
+  font-family: $font-family-base;
+  font-weight: bolder;
+  font-size: 14pt;
+  border-bottom: 1px solid #061013;
+  display: flex;
+  align-items: flex-end;
+}
+
+ion-buttons {
+  height: 30px;
+}
+
+.wrapper-for-content {
+  background: linear-gradient(180deg, #061013, #012936);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header-image {
+  margin-left: 25px;
+}
+
+.wrapper-for-input {
+  --background-color: rgba(0, 0, 255, 0.5);
+  --border: none;
+}
+
+.custom-input {
+  --background-color: rgba(0, 0, 255, 0.5);
+  --border: none;
+  color: white;
+  font-weight: 500;
+  font-size: 12pt;
+  border-bottom: 2px solid $grey-color;
+  width: 260px;
+  text-align: center;
+  font-family: $font-family-base;
+}
+
+.searchbar-icon {
+  color: #2b3237;
+  position: absolute;
+  right: 5px;
+  font-size: 22pt;
+}
+
+.item-illness {
+  width: 90%;
+  border: 1pt solid #707070;
+  margin: 7px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wrapper-for-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin-left: 15px;
+}
+
+.title-illness {
+  font-family: $font-family-base;
+  color: white;
+  font-weight: bolder;
+  margin: 5px;
+}
+
+.description-illness {
+  font-family: $font-family-base;
+  color: white;
+  font-size: 9pt;
+  font-weight: 300;
+  margin: 5px;
+  margin-bottom: 10px;
+}
+
+.icon-open-illness {
+  color: #60DAFF;
+  font-size: 16pt;
+  height: 100%;
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70px;
+}
+
+.current-category {
+  color: white;
+  font-size: 12pt;
+  font-family: $font-family-base;
+  font-weight: bolder;
+  margin: 5px;
+}

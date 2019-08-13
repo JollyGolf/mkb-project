@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap&subset=cyrillic');
+
+$font-family-base: 'Montserrat';
+$grey-color: #7B7B7B;
+$dark-grey-color: #707070;
+$light-blue-color: #60DAFF;
+
+@mixin flex-space-between-column {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+ion-toolbar {
+  height: 80px;
+  --background: #112D36;
+  color: white;
+  font-family: $font-family-base;
+  font-weight: bolder;
+  font-size: 14pt;
+  border-bottom: 1px solid #061013;
+  display: flex;
+  align-items: flex-end;
+}
+
+ion-buttons {
+  height: 30px;
+}
+
+.button-menu {
+  font-size: 16pt;
+  font-weight: 700;
+}
+
+.wrapper-for-content {
+  background: linear-gradient(180deg, #061013, #012936);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.wrapper-for-data {
+  @include flex-space-between-column;
+  height: 180px;
+  width: 100%;
+  margin: 20px;
+  background: url('../../assets/bg-icon/pulse.png');
+  background-repeat: no-repeat;
+}
+
+.username {
+  color: white;
+  font-family: $font-family-base;
+  font-size: 12pt;
+  font-weight: 600;
+}
+
+.count-point {
+  font-family: $font-family-base;
+  color: $light-blue-color;
+  font-size: 28pt;
+  font-weight: 600;
+}
+.title-point {
+  font-family: $font-family-base;
+  color: $light-blue-color;
+  font-size: 9pt;
+  font-weight: 600;
+}
+
+.wrapper-for-points {
+  @include flex-space-between-column;
+  justify-content: center;
+}
+
+.wrapper-for-history {
+  @include flex-space-between-column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.title-history {
+  font-family: $font-family-base;
+  color: white;
+  font-size: 11pt;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.item-of-history {
+  border-top: 2px solid $dark-grey-color;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  //margin: 10px;
+  padding: 5px;
+}
+
+.date-and-points {
+  @include flex-space-between-column;
+  align-items: flex-start;
+}
+.date, .points {
+  margin: 8px;
+}
+
+.date {
+  font-size: 9pt;
+  font-weight: 300;
+  color: white;
+  font-family: $font-family-base;
+}
+
+.points {
+  font-size: 11pt;
+  font-weight: 400;
+  color: $light-blue-color;
+  font-family: $font-family-base;
+}
+
+.current-points {
+  font-weight: 600;
+  color: $light-blue-color;
+  font-family: $font-family-base;
+}
+
+.wrapper-for-points-data {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+}

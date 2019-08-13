@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+  	<div class="wrapper-for-header">
+  	  <ion-buttons slot="start">
+  	    <ion-menu-button color="light">
+  	      <img src="../../assets/bg-icon/018-menu.png">
+  	    </ion-menu-button>
+  	  </ion-buttons>
+      <ion-title>МКБ 10</ion-title>
+	</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="wrapper-for-illnesses">
+
+  	<div ion-item margin class="wrapper-for-input">
+  	  <ion-input class="custom-input" #searchInput (ionChange)="ionChange(searchInput.value)">
+        <ion-icon class="searchbar-icon" name="search" (click)="searchBy(searchInput.value)"></ion-icon> 
+      </ion-input>
+	  </div>
+
+  	<div class="item-illness" (click)="openCategory('А00-В99')">
+  	  <div class="number-illness">1</div>
+  	  <div class="wrapper-for-info">
+  	    <div class="title-illness">А00-В99</div>
+  	    <div class="description-illness">Некоторые инфекционные и паразитарные болезни</div>
+  	  </div>
+  	  <div class="icon-open-illness">
+  	    <ion-icon name="arrow-forward"></ion-icon>
+  	  </div>
+    </div>
+
+    <div class="item-illness" (click)="openCategory('C00-D48')">
+  	  <div class="number-illness">2</div>
+  	  <div class="wrapper-for-info">
+  	    <div class="title-illness">C00-D48</div>
+  	    <div class="description-illness"> Новообразования</div>
+  	  </div>
+  	  <div class="icon-open-illness">
+  	    <ion-icon name="arrow-forward"></ion-icon>
+  	  </div>
+    </div>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+      color="light"
+      loadingSpinner="bubbles"
+      loadingText="Загрузка...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+  </div>
+</ion-content>

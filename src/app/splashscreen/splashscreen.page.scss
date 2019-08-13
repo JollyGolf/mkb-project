@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap&subset=cyrillic');
+
+$font-family-base: 'Montserrat';
+
+.wrapper-for-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(180deg, #004156, #012936);
+}
+
+.image {
+  position: absolute;
+  top: 100px;
+
+}
+
+.content{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 100%;
+}
+
+.information {
+  //width: 50%;
+  position: absolute;
+  top: 300px;
+  margin-left: 22%;
+}
+
+.title {
+  position: absolute;
+  margin-top: 5%;
+  left: -15%;
+  transform: rotate(270deg);
+  font-family: $font-family-base;
+  font-size: 45pt;
+  color: white;
+  font-weight: 700;
+}
+
+.description {
+  font-family: $font-family-base;
+  color: white;
+  font-size: 11pt;
+  font-weight: 300;
+  width: 70%;
+  width: 90%;
+}
+
+.other-information {
+  font-family: $font-family-base;
+  color: white;
+  font-size: 11pt;
+  font-weight: 300;	
+}
+
+.line {
+  width: 70%;
+  border-bottom: 1px solid white;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  color: white;
+  font-family: $font-family-base;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.wrapper-for-contacts {
+  padding-left: 10px;
+}
+
+.contact-who, .contact-where {
+  font-size: 8pt;
+  font-weight: 300;
+}

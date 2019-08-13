@@ -1,0 +1,44 @@
+<ion-split-pane class="menu">
+
+  <ion-menu contentId="content" class="menu" type="overlay">
+
+  	<ion-content>
+  	  <ion-list>
+  	  	<img src="../../assets/bg-icon/icon/002-heartbeat.png" class="heart-icon">
+  	  	<div class="title-menu">МКБ 10</div>
+  	  	<div class="wrapper-for-items">
+  	  	  <ion-menu-toggle auto-hide="false" *ngFor="let page of pages">
+  	  	    <ion-row class="wrapped-menu-item" [routerLink]="page.url" routerDirection="root" [class.active-item]="selectedPath === page.url">
+  	  	  	  <img src="../../assets/bg-icon/0{{ page.url == '/account' ? '17-user-2' : '14-bookmark'}}.png" class="{{ page.url == '/account' ? 'user' : 'bookmark'}}-icon">
+  	  	  	  <div class="title-menu-item">
+  	  	  	    {{ page.title }}
+  	  	      </div>
+  	  	    </ion-row>
+  	  	  </ion-menu-toggle>
+  	    
+  	  	  <ion-row class="wrapped-menu-item" (click)="signOut()">
+  	  	  <img src="../../assets/bg-icon/020-exit.png" class="exit-icon">
+  	  	    <div class="title-menu-item">
+  	  	  	  Выход
+  	  	    </div>
+  	  	  </ion-row>
+  	  	</div>
+  	  </ion-list>
+  	</ion-content>
+
+  </ion-menu>
+
+  <div class="wrapper-for-modal modal-hide-{{modalFlag}}">
+      <div class="modal">
+        <div class="wrapper-for-modal-icon">
+          <ion-icon name="close" class="modal-icon" (click)="closeModal()"></ion-icon>
+        </div>
+        <div class="modal-title">{{randomItem}} Ацекор Кардио, таблетки</div>
+        <img src="../../assets/bg-icon/Image 1.png" class="modal-img">
+        <div class="modal-description">Профилактика инфаркту миокарда, лдфв длфво л лфов лфов лдфцвлд лвл л ьльвцль вль лвьцльв льц лвьцьл ьл ьл ьл ьльлцьв льц львл ьльл ьлцьвльвцл вьлвьц влцьцлвь.</div>
+      </div>
+    </div>
+
+  <ion-router-outlet id="content" main></ion-router-outlet>
+
+</ion-split-pane>
