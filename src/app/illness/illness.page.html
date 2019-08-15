@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+  	<div class="wrapper-for-header">
+  	  <ion-buttons slot="start" (click)="back()">
+  	    <img src="../../assets/bg-icon/chevron-left.png" class="header-image">
+  	  </ion-buttons>
+      <ion-title>МКБ 10</ion-title>
+	</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="wrapper-for-content" *ngIf="illness">
+
+    <div class="wrapper-for-illness">
+        <div class="text" margin *ngIf="illness.parent_code">Parent Code: {{illness.parent_code}}</div>
+        <div class="text" margin *ngIf="illness.code">Code: {{illness.code}}</div>
+        <div class="text" margin *ngIf="illness.name">Name: {{illness.name}}</div>
+        <div class="text" margin *ngIf="illness.node_count">Node Count: {{illness.node_count}}</div>
+        <div class="text" margin *ngIf="illness.additional_info">Additional_info: {{illness.additional_info}}</div>
+    </div>
+    
+	<!-- <div class="item-illness" (click)="openIllness()" *ngFor="let illness of illnesses">
+  	  <div class="wrapper-for-info">
+  	    <div class="title-illness">{{current_category}}</div>
+  	    <div class="description-illness">Некоторые инфекционные и паразитарные болезни</div>
+  	  </div>
+  	  <div class="icon-open-illness">
+  	    <ion-icon name="arrow-forward"></ion-icon>
+  	  </div>
+    </div>
+  -->
+
+  </div>
+</ion-content>

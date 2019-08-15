@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'new-password-recovery', loadChildren: './new-password-recovery/new-password-recovery.module#NewPasswordRecoveryPageModule' },
   { path: 'splashscreen', loadChildren: './splashscreen/splashscreen.module#SplashscreenPageModule' },
   { path: 'category', loadChildren: './category/category.module#CategoryPageModule' },
+  { path: 'illness', loadChildren: './illness/illness.module#IllnessPageModule' },
   { path: '', loadChildren: './menu/menu.module#MenuPageModule' },
 ];
 

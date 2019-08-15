@@ -22,10 +22,10 @@
 	  {{current_category}}
 	</div>
 
-	<div class="item-illness" (click)="openIllness()" *ngFor="let illness of illnesses">
+	<div class="item-illness" *ngFor="let illness of illnesses" (click)="openIllness(illness)" >
   	  <div class="wrapper-for-info">
-  	    <div class="title-illness">{{current_category}}</div>
-  	    <div class="description-illness">Некоторые инфекционные и паразитарные болезни</div>
+  	    <div class="title-illness">{{illness.code}}</div>
+  	    <div class="description-illness">{{illness.name}}</div>
   	  </div>
   	  <div class="icon-open-illness">
   	    <ion-icon name="arrow-forward"></ion-icon>

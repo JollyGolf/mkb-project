@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap&subset=cyrillic');
+
+$font-family-base: 'Montserrat';
+$grey-color: #7B7B7B;
+
+.wrapper-for-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+ion-title {
+  color: white;
+  font-family: $font-family-base;
+  font-weight: bolder;
+  font-size: 14pt;
+}
+  
+ion-toolbar {
+  height: 80px;
+  --background: #112D36;
+  color: white;
+  font-family: $font-family-base;
+  font-weight: bolder;
+  font-size: 14pt;
+  border-bottom: 1px solid #061013;
+  display: flex;
+  align-items: flex-end;
+}
+  
+ion-content {
+  --background: linear-gradient(180deg, #061013, #012936);
+}
+  
+  .wrapper-for-content {
+    //background: linear-gradient(180deg, #061013, #012936);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .header-image {
+    margin-left: 25px;
+  }
+  
+  .text {
+    color: white;
+    font-family: $font-family-base;
+    font-size: 12pt;
+  }
+
+  .wrapper-for-illness {
+    width: 90%;
+    border: 1pt solid #707070;
+    margin: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }

@@ -18,11 +18,10 @@ export class CategoryPage implements OnInit {
   ngOnInit() {
     this.db.getDatabaseState().subscribe( ready => {
       if(ready) {
-        this.db.loadIllnesses(localStorage.getItem('category'), 10)
-        //this.db.loadIllnesses()
+        this.db.loadIllnesses(localStorage.getItem('category'), Number(localStorage.getItem('node_count')))
           .then(data => {
             this.illnesses = data;
-            console.log(data);
+            console.log('{Load Illnesses}', data);
           });
       }
       else console.log('{Database = false}', ready);
@@ -30,8 +29,9 @@ export class CategoryPage implements OnInit {
     this.current_category = localStorage.getItem('category');
   }
 
-  openIllness(){
-  	console.log('Click');
+  openIllness(illness: any){
+    localStorage.setItem('illness', illness.code)
+  	this.router.navigate(['illness']);
   }
 
   ionChange(value: string) {

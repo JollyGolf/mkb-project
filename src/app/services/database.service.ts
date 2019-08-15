@@ -22,6 +22,7 @@ export class DatabaseService {
   apiURL = 'http://4.dev-kit.ru:3000/api/client/';
   classes = new BehaviorSubject([]);
   illnesses = new BehaviorSubject([]);
+  illness = new BehaviorSubject([]);
  
   constructor(
   	private plt: Platform, 
@@ -73,14 +74,7 @@ export class DatabaseService {
             node_count: data.rows.item(i).node_count,
             additional_info: data.rows.item(i).additional_info
           });
-          /* console.log(
-            '$i=', i, 
-            ' id=>', data.rows.item(i).id,
-            ' name=>', data.rows.item(i).name,
-            ' info=>', data.rows.item(i).additional_info,
-          ); */
         }
-
       }
       this.classes.next(classes);
       return classes;
@@ -90,7 +84,7 @@ export class DatabaseService {
   loadIllnesses(parent: string, limit: number) {
     return this.database.executeSql(`SELECT * FROM class_mkb WHERE parent_code = '${parent}' LIMIT ${limit}`, []).then(data => {
       let illnesses = [];
-      //console.log('CUSTOM DATA:', data)
+
       if (data.rows.length > 0) {
         for (var i = 0; i < data.rows.length; i++) {
           illnesses.push({ 
@@ -102,12 +96,6 @@ export class DatabaseService {
             node_count: data.rows.item(i).node_count,
             additional_info: data.rows.item(i).additional_info
           });
-          console.log(
-            '$i=', i, 
-            ' id=>', data.rows.item(i).id,
-            ' name=>', data.rows.item(i).name,
-            ' info=>', data.rows.item(i).additional_info,
-          );
         }
       }
       this.illnesses.next(illnesses)
@@ -115,10 +103,32 @@ export class DatabaseService {
     });
   }
 
+  loadIllness(code: string) {
+    return this.database.executeSql(`SELECT * FROM class_mkb WHERE code = '${code}' LIMIT 1`, []).then(data => {
+      let illness = [];
+
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+          illness.push({ 
+            id: data.rows.item(i).id,
+            name: data.rows.item(i).name, 
+            code: data.rows.item(i).code,
+            parent_id: data.rows.item(i).parent_id,
+            parent_code: data.rows.item(i).parent_code,
+            node_count: data.rows.item(i).node_count,
+            additional_info: data.rows.item(i).additional_info
+          });
+        }
+      }
+      this.illness.next(illness)
+      return illness;
+    });
+  }
+
   
 
 
-  login(data){
+  login(data: any){
     const head = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'

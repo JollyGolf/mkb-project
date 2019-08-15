@@ -24,7 +24,7 @@ export class HandbookPage implements OnInit {
         this.db.loadClasses(10)
           .then(data => {
             this.categories = data;
-            //console.log(data);
+            console.log('{Load categories}',data);
           });
       }
     })
@@ -40,8 +40,9 @@ export class HandbookPage implements OnInit {
   }
 
   openCategory(category) {
-  	console.log(category.code);
+  	console.log('{Category code}',category.code);
     localStorage.setItem('category', category.code);
+    localStorage.setItem('node_count', category.node_count)
   	this.router.navigate(['category']);
   }  
 
