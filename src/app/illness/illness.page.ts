@@ -22,6 +22,11 @@ export class IllnessPage implements OnInit {
             this.illness = data[0];
             console.log('{Load Illness}', data);
           });
+        
+        this.db.loadChild()
+          .then(data => {
+            console.log('{Load Childs}', data);
+          })
       }
       else console.log('{Database = false}', ready);
     })

@@ -4,11 +4,11 @@ import { Location } from '@angular/common';
 import { DatabaseService } from '../services/database.service';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.page.html',
-  styleUrls: ['./category.page.scss'],
+  selector: 'app-current-category',
+  templateUrl: './current-category.page.html',
+  styleUrls: ['../category/category.page.scss'],
 })
-export class CategoryPage implements OnInit {
+export class CurrentCategoryPage implements OnInit {
 
   current_category: string;
   illnesses: any = 0;
@@ -18,22 +18,21 @@ export class CategoryPage implements OnInit {
   ngOnInit() {
     this.db.getDatabaseState().subscribe( ready => {
       if(ready) {
-        this.db.loadIllnesses(localStorage.getItem('category'), Number(localStorage.getItem('node_count')))
+        this.db.loadIllnesses(localStorage.getItem('current_category'), Number(localStorage.getItem('current_node_count')))
           .then(data => {
             this.illnesses = data;
-            console.log('{Load Illnesses}', data);
+            console.log('{Load Current Category}', data);
           });
       }
       else console.log('{Database = false}', ready);
     })
-    this.current_category = localStorage.getItem('category');
+    this.current_category = localStorage.getItem('current_category');
   }
 
   openIllness(illness: any){
-    //localStorage.setItem('illness', illness.code)
-    localStorage.setItem('current_category', illness.code);
-    localStorage.setItem('current_node_count', illness.node_count);
-  	this.router.navigate(['current-category']);
+    localStorage.setItem('last_category', illness.code);
+    localStorage.setItem('last_node_count', illness.node_count);
+  	this.router.navigate(['last-category']);
   }
 
   ionChange(value: string) {

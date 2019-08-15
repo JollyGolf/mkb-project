@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar>
+      <div class="wrapper-for-header">
+        <ion-buttons slot="start" (click)="back()">
+          <img src="../../assets/bg-icon/chevron-left.png" class="header-image">
+        </ion-buttons>
+        <ion-title>МКБ 10</ion-title>
+    </div>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <div class="wrapper-for-content">
+  
+    <div ion-item margin class="wrapper-for-input">
+      <ion-input class="custom-input" #searchInput (ionChange)="ionChange(searchInput.value)">
+        <ion-icon class="searchbar-icon" name="search" (click)="searchBy(searchInput.value)"></ion-icon> 
+      </ion-input>
+    </div>
+  
+    <div class="current-category">
+      {{current_category}}
+    </div>
+  
+    <div class="item-illness" *ngFor="let illness of illnesses" (click)="openIllness(illness)" >
+        <div class="wrapper-for-info">
+          <div class="title-illness">{{illness.code}}</div>
+          <div class="description-illness">{{illness.name}}</div>
+        </div>
+        <div class="icon-open-illness">
+          <ion-icon name="arrow-forward"></ion-icon>
+        </div>
+      </div>
+  
+    </div>
+  </ion-content>

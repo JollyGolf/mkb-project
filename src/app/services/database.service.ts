@@ -125,6 +125,28 @@ export class DatabaseService {
     });
   }
 
+  loadChild() {
+    return this.database.executeSql(`SELECT * FROM class_mkb WHERE node_count = 0 LIMIT 10`, []).then(data => {
+      let illness = [];
+
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+          illness.push({ 
+            id: data.rows.item(i).id,
+            name: data.rows.item(i).name, 
+            code: data.rows.item(i).code,
+            parent_id: data.rows.item(i).parent_id,
+            parent_code: data.rows.item(i).parent_code,
+            node_count: data.rows.item(i).node_count,
+            additional_info: data.rows.item(i).additional_info
+          });
+        }
+      }
+      //this.illness.next(illness)
+      return illness;
+    });
+  }
+
   
 
 

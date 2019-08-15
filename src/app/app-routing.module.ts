@@ -14,6 +14,9 @@ const routes: Routes = [
   { path: 'splashscreen', loadChildren: './splashscreen/splashscreen.module#SplashscreenPageModule' },
   { path: 'category', loadChildren: './category/category.module#CategoryPageModule' },
   { path: 'illness', loadChildren: './illness/illness.module#IllnessPageModule' },
+  { path: 'current-category', loadChildren: './current-category/current-category.module#CurrentCategoryPageModule' },
+  { path: 'last-category', loadChildren: './last-category/last-category.module#LastCategoryPageModule' },
+  //{ path: 'illnesses', loadChildren: './illnesses/illnesses.module#IllnessesPageModule' },
   { path: '', loadChildren: './menu/menu.module#MenuPageModule' },
 ];
 
