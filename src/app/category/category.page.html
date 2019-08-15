@@ -22,7 +22,7 @@
 	  {{current_category}}
 	</div>
 
-	<div class="item-illness" (click)="openIllness()">
+	<div class="item-illness" (click)="openIllness()" *ngFor="let illness of illnesses">
   	  <div class="wrapper-for-info">
   	    <div class="title-illness">{{current_category}}</div>
   	    <div class="description-illness">Некоторые инфекционные и паразитарные болезни</div>

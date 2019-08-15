@@ -8,17 +8,17 @@
 
   	<div margin>
   	  <ion-label position="fixed" class="custom-label">Номер телефона</ion-label>
-  	  <ion-input class="custom-input"></ion-input>
-	  </div>
+  	  <ion-input class="custom-input" [(ngModel)]="data.phone"></ion-input>
+	</div>
 
-	  <div margin>
+	<div margin>
   	  <ion-label position="fixed" class="custom-label">Введите пароль</ion-label>
-  	  <ion-input type="password" class="custom-input"></ion-input>
-	  </div>
+  	  <ion-input type="password" class="custom-input" [(ngModel)]="data.password"></ion-input>
+	</div>
 
-	  <div class="issue-button" margin (click)="toggle('pass-recovery')">Забыли пароль?</div>
+	<div class="issue-button" margin (click)="toggle('pass-recovery')">Забыли пароль?</div>
 
-	  <button margin class="button button-login" (click)="toggle('handbook')">ВХОД</button>
-	  <button class="button button-signup" (click)="toggle('sign-up')">РЕГИСТРАЦИЯ</button>
+	<button margin class="button button-login" (click)="logIn()">ВХОД</button>
+	<button class="button button-signup" (click)="toggle('sign-up')">РЕГИСТРАЦИЯ</button>
   </ion-row>
 </ion-content>

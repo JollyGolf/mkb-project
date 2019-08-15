@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { togglePage } from '../shared/togglePage';
 import { Router } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-log-in',
@@ -9,9 +9,26 @@ import { Router } from '@angular/router';
 })
 export class LogInPage implements OnInit {
 
-  constructor(private router: Router) { }
+  data: object = {
+    phone: '',
+    password: ''
+  }
+
+  constructor(private router: Router, private db: DatabaseService) { }
 
   ngOnInit() {
+    this.db.getDatabaseState().subscribe( ready => {
+      console.log('database ready:', ready);
+    })
+  }
+
+  logIn() {
+    console.log('log-in-page.ts', this.data);
+    this.db.login(this.data);
+  }
+
+  signUp() {
+    //this.db.signup(this.data);
   }
 
   toggle(page: string){

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { DatabaseService } from '../services/database.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-handbook',
@@ -13,26 +14,34 @@ export class HandbookPage implements OnInit {
    //@ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   searchText: string;
+  categories: any = 0;
 
   constructor(private router: Router, private db: DatabaseService) { }
 
   ngOnInit() {
     this.db.getDatabaseState().subscribe( ready => {
-      console.log('database ready:', ready);
+      if(ready) {
+        this.db.loadClasses(10)
+          .then(data => {
+            this.categories = data;
+            //console.log(data);
+          });
+      }
     })
   }
 
   searchBy(value: string) { }
 
   ionChange(value: string) {
+    //console.log(this.data);
     value == '' 
       ? console.log('select * from *') 
       : console.log('select * from * where categoryName =', value);
   }
 
-  openCategory(category: string) {
-  	console.log(category);
-    localStorage.setItem('category', category);
+  openCategory(category) {
+  	console.log(category.code);
+    localStorage.setItem('category', category.code);
   	this.router.navigate(['category']);
   }  
 

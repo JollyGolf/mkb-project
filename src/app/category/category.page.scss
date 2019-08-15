@@ -3,6 +3,23 @@
 $font-family-base: 'Montserrat';
 $grey-color: #7B7B7B;
 
+.wrapper-for-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+ion-title {
+  color: white;
+  font-family: $font-family-base;
+  font-weight: bolder;
+  font-size: 14pt;
+}
+
 ion-toolbar {
   height: 80px;
   --background: #112D36;
@@ -19,8 +36,12 @@ ion-buttons {
   height: 30px;
 }
 
+ion-content {
+  --background: linear-gradient(180deg, #061013, #012936);
+}
+
 .wrapper-for-content {
-  background: linear-gradient(180deg, #061013, #012936);
+  //background: linear-gradient(180deg, #061013, #012936);
   display: flex;
   justify-content: flex-start;
   align-items: center;

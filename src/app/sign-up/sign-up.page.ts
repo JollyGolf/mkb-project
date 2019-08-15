@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common'; 
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,13 +10,25 @@ import { Location } from '@angular/common';
 })
 export class SignUpPage implements OnInit {
 
-  constructor(private router: Router, private location: Location, ) { }
-
-  ngOnInit() {
+  data: object = {
+    phone: '',
+    password: '',
+    password_confirm: '',
+    name: ''
   }
 
-  toggle(){
-  	this.router.navigate(['confirm-sign-up']);
+  constructor(private router: Router, private location: Location, private db: DatabaseService) { }
+
+  ngOnInit() {
+    this.db.getDatabaseState().subscribe( ready => {
+      console.log('database ready:', ready);
+    })
+  }
+
+  signUp() {
+    this.db.signup(this.data);
+    //console.log(this.data);
+    //this.router.navigate(['confirm-sign-up']);
   }
   
   back(){
