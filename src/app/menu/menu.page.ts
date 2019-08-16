@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
+import { RoutingDataService } from '../services/routing-data.service';
 
 const adds = [1, 2, 3, 4, 5];
 
@@ -8,7 +9,7 @@ const adds = [1, 2, 3, 4, 5];
   templateUrl: './menu.page.html',
   styleUrls: ['./menu.page.scss'],
 })
-export class MenuPage implements OnInit {
+export class MenuPage implements OnInit, OnDestroy {
 
   pages = [
     {
@@ -23,17 +24,23 @@ export class MenuPage implements OnInit {
 
   selectedPath = '';
   modalFlag: boolean = true;
+  advertisementFlag: boolean = false;
   randomItem: number;
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, private routerDataProv: RoutingDataService) { 
   	this.router.events.subscribe((event: RouterEvent) => {
   	  this.selectedPath = event.url;
   	})
   }
 
   ngOnInit() {
-    this.randomItem = adds[Math.floor(Math.random() * adds.length)];
-    setTimeout(() => this.modalFlag = false, 1000);
+    if(this.advertisementFlag == false) {
+      this.randomItem = adds[Math.floor(Math.random() * adds.length)];
+      setTimeout(() => {
+        this.modalFlag = false;
+        this.advertisementFlag = true;
+      }, 1000);
+    }
   }
 
   closeModal() {
@@ -41,7 +48,12 @@ export class MenuPage implements OnInit {
   }
 
   signOut(){
+    localStorage.removeItem('userToken');
   	this.router.navigate(['log-in']);
+  }
+
+  ngOnDestroy() {
+    console.log('{OnDestroy Menu Page}');
   }
 
 }

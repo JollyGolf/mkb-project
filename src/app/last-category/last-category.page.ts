@@ -38,9 +38,29 @@ export class LastCategoryPage implements OnInit {
   }
 
   ionChange(value: string) {
-    value == '' 
-      ? console.log('select * from * where categoryName =',localStorage.getItem('category')) 
-      : console.log('select * from * where categoryName =',localStorage.getItem('category'),'and itemName =', value);
+    if(value == '') {
+      this.db.getDatabaseState().subscribe( ready => {
+        if(ready) {
+          this.db.loadIllnesses(localStorage.getItem('last_category'), Number(localStorage.getItem('last_node_count')))
+            .then(data => {
+              this.illnesses = data;
+              //console.log('{Load Illnesses}', data);
+            });
+        }
+        else console.log('{Database = false}', ready);
+      })
+      this.current_category = localStorage.getItem('last_category');
+    }
+    else {
+      this.db.getDatabaseState().subscribe( ready => {
+        if(ready) {
+          this.db.searchByIllnesses(localStorage.getItem('last_category'),value,10).then(data => {
+            this.illnesses = data;
+            console.log('{Search by', value,'of', data);
+          });
+        }
+      })
+    }
   }
 
   back(){

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DatabaseService } from '../services/database.service';
+import { UserAuthService } from '../services/user-auth.service';
 
 @Component({
   selector: 'app-log-in',
@@ -14,17 +14,18 @@ export class LogInPage implements OnInit {
     password: ''
   }
 
-  constructor(private router: Router, private db: DatabaseService) { }
+  constructor(
+    private router: Router, 
+    private auth: UserAuthService
+  ) { }
 
   ngOnInit() {
-    this.db.getDatabaseState().subscribe( ready => {
-      console.log('database ready:', ready);
-    })
+    
   }
 
   logIn() {
     console.log('log-in-page.ts', this.data);
-    this.db.login(this.data);
+    this.auth.login(this.data);
   }
 
   signUp() {

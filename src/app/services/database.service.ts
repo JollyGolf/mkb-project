@@ -61,6 +61,7 @@ export class DatabaseService {
 
   loadClasses(limit: number) {
     return this.database.executeSql(`SELECT * FROM class_mkb WHERE parent_code IS NULL LIMIT ${limit}`, []).then(data => {
+      //console.log('General LOAD => ', data.rows.item(1));
       let classes = [];
  
       if (data.rows.length > 0) {
@@ -147,114 +148,151 @@ export class DatabaseService {
     });
   }
 
-  
+// name LIKE '%${key}%' OR
+//`SELECT * FROM class_mkb WHERE parent_code IS NULL and code LIKE '%${key}%' LIMIT ${limit}`
 
+  searchBy(key: string, limit: number){
+    return this.database.executeSql(`SELECT * FROM class_mkb WHERE parent_code IS NULL and code LIKE '%${key}%' OR name LIKE '%${key}%' LIMIT ${limit}`, []).then(data => {
 
-  login(data: any){
-    const head = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-    console.log('HTTP CUSTOM POST: ', this.apiURL + "login", data, {headers: head});
-    this.http.post(this.apiURL + "login", data, {headers: head}).subscribe(
-      data => {
-        console.log(data)
-      },
-      err => {
-        console.log('{login}:', err);
+      let classes = [];
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+          //console.log(data.rows.item(i));
+          classes.push(data.rows.item(i)
+          );
+        }
       }
-    );
+      return classes;
+    });
   }
 
-  signup(data) {
-    const head = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-    this.http.post(this.apiURL + "registration", data, {headers: head}).subscribe(
-      data => {
-        console.log('{Success}', data)
-      },
-      err => {
-        console.log('{signup} ', err);
+  searchByIllnesses(parent: string, key, limit: number) {
+    return this.database.executeSql(`SELECT * FROM class_mkb WHERE parent_code = '${parent}' and code LIKE '%${key}%' OR name LIKE '%${key}%' LIMIT ${limit}`, []).then(data => {
+      let illnesses = [];
+
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+          illnesses.push({ 
+            id: data.rows.item(i).id,
+            name: data.rows.item(i).name, 
+            code: data.rows.item(i).code,
+            parent_id: data.rows.item(i).parent_id,
+            parent_code: data.rows.item(i).parent_code,
+            node_count: data.rows.item(i).node_count,
+            additional_info: data.rows.item(i).additional_info
+          });
+        }
       }
-    );
+      this.illnesses.next(illnesses)
+      return illnesses;
+    });
   }
 
-  signup_confirm(data) {
-    const head = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-    this.http.post(this.apiURL + "registration_confirm", data, {headers: head}).subscribe(
-      data => {
-        console.log('{Success}', data)
-      },
-      err => {
-        console.log('{signup_confirm}', err);
-      }
-    );
-  }
+  // login(data: any){
+  //   const head = {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   }
+  //   //console.log('HTTP CUSTOM POST: ', this.apiURL + "login", data, {headers: head});
+  //   this.http.post(this.apiURL + "login", data, {headers: head}).subscribe(
+  //     data => {
+  //       console.log(data)
+  //     },
+  //     err => {
+  //       console.log('{login}:', err);
+  //     }
+  //   );
+  // }
 
-  recovery_send_code(data) {
-    const head = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-    this.http.post(this.apiURL + "password_send_code", data, {headers: head}).subscribe(
-      data => {
-        console.log('{Success}', data)
-      },
-      err => {
-        console.log('{revocery_send_code}', err);
-      }
-    );
-  }
+  // signup(data: any) {
+  //   const head = {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   }
+  //   this.http.post(this.apiURL + "registration", data, {headers: head}).subscribe(
+  //     data => {
+  //       console.log('{Signup Success}', data)
+  //     },
+  //     err => {
+  //       console.log('{Signup Error} ', err);
+  //     }
+  //   );
+  // }
 
-  recovery_check_code(data) {
-    const head = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-    this.http.post(this.apiURL + "password_check_code", data, {headers: head}).subscribe(
-      data => {
-        console.log('{Success}', data)
-      },
-      err => {
-        console.log('{recovery_check_code}', err);
-      }
-    );
-  }
+  // signup_confirm(data) {
+  //   const head = {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   }
+  //   this.http.post(this.apiURL + "registration_confirm", data, {headers: head}).subscribe(
+  //     data => {
+  //       console.log('{Success}', data)
+  //     },
+  //     err => {
+  //       console.log('{signup_confirm}', err);
+  //     }
+  //   );
+  // }
 
-  set_password(data) {
-    const head = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-    this.http.put(this.apiURL + "password", data, {headers: head}).subscribe(
-      data => {
-        console.log('{Success}', data)
-      },
-      err => {
-        console.log('{set_password}', err);
-      }
-    );
-  }
+  // recovery_send_code(data) {
+  //   const head = {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   }
+  //   this.http.post(this.apiURL + "password_send_code", data, {headers: head}).subscribe(
+  //     data => {
+  //       console.log('{Success}', data)
+  //     },
+  //     err => {
+  //       console.log('{revocery_send_code}', err);
+  //     }
+  //   );
+  // }
 
-  logout(data) {
-    const head = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-    this.http.put(this.apiURL + "logout", data, {headers: head}).subscribe(
-      data => {
-        console.log('{Success}', data)
-      },
-      err => {
-        console.log('{logout}', err);
-      }
-    );
-  }
+  // recovery_check_code(data) {
+  //   const head = {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   }
+  //   this.http.post(this.apiURL + "password_check_code", data, {headers: head}).subscribe(
+  //     data => {
+  //       console.log('{Success}', data)
+  //     },
+  //     err => {
+  //       console.log('{recovery_check_code}', err);
+  //     }
+  //   );
+  // }
+
+  // set_password(data) {
+  //   const head = {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   }
+  //   this.http.put(this.apiURL + "password", data, {headers: head}).subscribe(
+  //     data => {
+  //       console.log('{Success}', data)
+  //     },
+  //     err => {
+  //       console.log('{set_password}', err);
+  //     }
+  //   );
+  // }
+
+  // logout(data) {
+  //   const head = {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   }
+  //   this.http.put(this.apiURL + "logout", data, {headers: head}).subscribe(
+  //     data => {
+  //       console.log('{Success}', data)
+  //     },
+  //     err => {
+  //       console.log('{logout}', err);
+  //     }
+  //   );
+  // }
 
   // addDeveloper(name, skills, img) {
   //   let data = [name, JSON.stringify(skills), img];

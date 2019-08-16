@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+const loginFlag = localStorage.getItem('userToken');
+//loginFlag ? 'menu/' : 'log-in'
 const routes: Routes = [
   { path: '', redirectTo: 'menu', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
@@ -16,7 +18,6 @@ const routes: Routes = [
   { path: 'illness', loadChildren: './illness/illness.module#IllnessPageModule' },
   { path: 'current-category', loadChildren: './current-category/current-category.module#CurrentCategoryPageModule' },
   { path: 'last-category', loadChildren: './last-category/last-category.module#LastCategoryPageModule' },
-  //{ path: 'illnesses', loadChildren: './illnesses/illnesses.module#IllnessesPageModule' },
   { path: '', loadChildren: './menu/menu.module#MenuPageModule' },
 ];
 

@@ -12,6 +12,15 @@ $light-blue-color: #60DAFF;
   flex-direction: column;
 }
 
+.wrapper-for-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
 ion-toolbar {
   height: 80px;
   --background: #112D36;
@@ -26,6 +35,13 @@ ion-toolbar {
 
 ion-buttons {
   height: 30px;
+}
+
+ion-title {
+  color: white;
+  font-family: $font-family-base;
+  font-weight: bolder;
+  font-size: 14pt;
 }
 
 .button-menu {

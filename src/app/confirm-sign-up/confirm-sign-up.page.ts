@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common'; 
+import { UserAuthService } from '../services/user-auth.service';
 
 @Component({
   selector: 'app-confirm-sign-up',
@@ -9,17 +10,23 @@ import { Location } from '@angular/common';
 })
 export class ConfirmSignUpPage implements OnInit {
 
-  constructor(private router: Router, private location: Location) { }
+  code: string = '';
+
+  constructor(
+    private router: Router, 
+    private location: Location,
+    private auth: UserAuthService
+  ) { }
 
   ngOnInit() {
+    
   }
 
   toggle(){
-  	this.router.navigate(['success-sign-up']);
+    this.auth.registrationConfirm(this.code );
   }
 
   back(){
-  	//this.router.navigate(['sign-up']);
     this.location.back()
   }
 }

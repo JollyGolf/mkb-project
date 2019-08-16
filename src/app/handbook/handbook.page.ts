@@ -15,6 +15,7 @@ export class HandbookPage implements OnInit {
 
   searchText: string;
   categories: any = 0;
+  searchResult: any = 0;
 
   constructor(private router: Router, private db: DatabaseService) { }
 
@@ -34,16 +35,40 @@ export class HandbookPage implements OnInit {
 
   ionChange(value: string) {
     //console.log(this.data);
-    value == '' 
-      ? console.log('select * from *') 
-      : console.log('select * from * where categoryName =', value);
+    if(value == '') {
+      this.db.getDatabaseState().subscribe( ready => {
+        if(ready) {
+          this.db.loadClasses(10).then(data => {
+            this.categories = data;
+            console.log('{Load categories}',data);
+          });
+        }
+      })
+    }
+    else {
+      this.db.getDatabaseState().subscribe( ready => {
+        if(ready) {
+          this.db.searchBy(value,10).then(data => {
+            this.categories = data;
+            console.log('{Search by', value,'of', data);
+          });
+        }
+      })
+    }
   }
 
   openCategory(category) {
-  	console.log('{Category code}',category.code);
-    localStorage.setItem('category', category.code);
-    localStorage.setItem('node_count', category.node_count)
-  	this.router.navigate(['category']);
+    console.log('{Category code}',category.code);
+    if(category.node_count == 0) {
+      localStorage.setItem('illness', category.code);
+      this.router.navigate(['illness']);
+    }
+    else {
+      localStorage.setItem('category', category.code);
+      localStorage.setItem('node_count', category.node_count)
+  	  this.router.navigate(['category']);
+    }
+    
   }  
 
 

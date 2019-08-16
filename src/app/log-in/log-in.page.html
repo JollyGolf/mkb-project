@@ -1,24 +1,26 @@
 <ion-content class="page">
   <div class="bg-image"></div>
-  <ion-row align-items-center class="column">
+  <!-- <ion-row align-items-center class="column"> -->
+  <div class="column_div">
+	<img src="../../assets/bg-icon/icon/002-heartbeat.png" class="icon" margin>
 
-  	<img src="../../assets/bg-icon/icon/002-heartbeat.png" class="icon" margin>
-
-  	<div class="title-after-img" margin>Вход</div>
-
-  	<div margin>
-  	  <ion-label position="fixed" class="custom-label">Номер телефона</ion-label>
-  	  <ion-input class="custom-input" [(ngModel)]="data.phone"></ion-input>
-	</div>
+	<div class="title-after-img" margin>Вход</div>
 
 	<div margin>
-  	  <ion-label position="fixed" class="custom-label">Введите пароль</ion-label>
-  	  <ion-input type="password" class="custom-input" [(ngModel)]="data.password"></ion-input>
-	</div>
+	  <ion-label position="fixed" class="custom-label">Номер телефона</ion-label>
+	  <ion-input class="custom-input" [(ngModel)]="data.phone"></ion-input>
+  </div>
 
-	<div class="issue-button" margin (click)="toggle('pass-recovery')">Забыли пароль?</div>
+  <div margin>
+	  <ion-label position="fixed" class="custom-label">Введите пароль</ion-label>
+	  <ion-input type="password" class="custom-input" [(ngModel)]="data.password"></ion-input>
+  </div>
 
-	<button margin class="button button-login" (click)="logIn()">ВХОД</button>
-	<button class="button button-signup" (click)="toggle('sign-up')">РЕГИСТРАЦИЯ</button>
-  </ion-row>
+  <div class="issue-button" margin (click)="toggle('pass-recovery')">Забыли пароль?</div>
+
+  <button margin class="button button-login" (click)="logIn()">ВХОД</button>
+  <button class="button button-signup" (click)="toggle('sign-up')">РЕГИСТРАЦИЯ</button>
+
+  </div>
+  	<!-- </ion-row> -->
 </ion-content>

@@ -30,15 +30,41 @@ export class CurrentCategoryPage implements OnInit {
   }
 
   openIllness(illness: any){
-    localStorage.setItem('last_category', illness.code);
-    localStorage.setItem('last_node_count', illness.node_count);
-  	this.router.navigate(['last-category']);
+    if(illness.node_count == 0) {
+      localStorage.setItem('illness', illness.code);
+      this.router.navigate(['illness']);
+    }
+    else {
+      localStorage.setItem('last_category', illness.code);
+      localStorage.setItem('last_node_count', illness.node_count);
+      this.router.navigate(['last-category']);
+    }
   }
 
   ionChange(value: string) {
-    value == '' 
-      ? console.log('select * from * where categoryName =',localStorage.getItem('category')) 
-      : console.log('select * from * where categoryName =',localStorage.getItem('category'),'and itemName =', value);
+    if(value == '') {
+      this.db.getDatabaseState().subscribe( ready => {
+        if(ready) {
+          this.db.loadIllnesses(localStorage.getItem('current_category'), Number(localStorage.getItem('current_node_count')))
+            .then(data => {
+              this.illnesses = data;
+              //console.log('{Load Illnesses}', data);
+            });
+        }
+        else console.log('{Database = false}', ready);
+      })
+      this.current_category = localStorage.getItem('current_category');
+    }
+    else {
+      this.db.getDatabaseState().subscribe( ready => {
+        if(ready) {
+          this.db.searchByIllnesses(localStorage.getItem('current_category'),value,10).then(data => {
+            this.illnesses = data;
+            console.log('{Search by', value,'of', data);
+          });
+        }
+      })
+    }
   }
 
   back(){

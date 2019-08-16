@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserAuthService } from '../services/user-auth.service';
+import { RoutingDataService } from '../services/routing-data.service';
 
 @Component({
   selector: 'app-success-sign-up',
@@ -8,13 +10,27 @@ import { Router } from '@angular/router';
 })
 export class SuccessSignUpPage implements OnInit {
 
-  constructor(private router: Router) { }
+  data: Object= {
+    phone: '',
+    password: ''
+  }
+
+  constructor(
+    private router: Router,
+    private auth: UserAuthService,
+    private routerDataProv: RoutingDataService
+  ) { }
 
   ngOnInit() {
+    this.data = {
+      phone: this.routerDataProv.getData().phone,
+      password: this.routerDataProv.getData().password
+    }
   }
 
   toggle(){
-  	this.router.navigate(['handbook']);
+    console.log('{ log-in }', this.data);
+    this.auth.login(this.data);
   }
 
 }

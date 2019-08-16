@@ -5,6 +5,8 @@ $font-family-base: 'Montserrat';
 
 .page {
   --background: linear-gradient(45deg, #112D36, #012936);
+  width: 100%;
+  height: 100%;
 }
 .bg-image {
   width: 100%;
@@ -12,7 +14,11 @@ $font-family-base: 'Montserrat';
   position: absolute;
   background: url('../../assets/bg-icon/002-heartbeat.png');
   background-repeat: no-repeat;
-  background-position: center;
+  background-attachment: fixed;
+  background-position: center center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   z-index: 5;
 }
 .column {
@@ -22,6 +28,17 @@ $font-family-base: 'Montserrat';
   flex-direction: column;
   z-index: 6;
   padding-top: 70px;
+}
+
+.column_div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 6;
+  padding-top: 50px;
 }
 
 .title-after-img {
@@ -63,7 +80,7 @@ $font-family-base: 'Montserrat';
 .button {
   background-color: transparent;
   width: 260px;
-  height: 50px;
+  min-height: 50px;
   border: 2px solid $light-blue-color;
   border-radius: 50px;
   color: white;
