@@ -10,6 +10,11 @@ ion-content {
   border-right: 2px solid #012936;
 }
 
+.wrapped-menu-item {
+  outline: none !important;
+}
+
+
 .wrapper-for-items {
   display: flex;
   justify-content: space-around;

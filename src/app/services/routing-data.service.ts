@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class RoutingDataService {
 
-  private staticData : any;
+  private staticData: any;
+  private staticAdv: any;
 
   constructor() { }
 
@@ -14,5 +15,11 @@ export class RoutingDataService {
   }
   getData(){
     return this.staticData;
+  }
+  setAdv(data) {
+    this.staticAdv = data;
+  }
+  getAdv(){
+    return this.staticAdv;
   }
 }

@@ -23,7 +23,7 @@ export class ConfirmSignUpPage implements OnInit {
   }
 
   toggle(){
-    this.auth.registrationConfirm(this.code );
+    this.auth.registrationConfirm(this.code);
   }
 
   back(){

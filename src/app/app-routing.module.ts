@@ -14,10 +14,6 @@ const routes: Routes = [
   { path: 'message-recovery', loadChildren: './message-recovery/message-recovery.module#MessageRecoveryPageModule' },
   { path: 'new-password-recovery', loadChildren: './new-password-recovery/new-password-recovery.module#NewPasswordRecoveryPageModule' },
   { path: 'splashscreen', loadChildren: './splashscreen/splashscreen.module#SplashscreenPageModule' },
-  { path: 'category', loadChildren: './category/category.module#CategoryPageModule' },
-  { path: 'illness', loadChildren: './illness/illness.module#IllnessPageModule' },
-  { path: 'current-category', loadChildren: './current-category/current-category.module#CurrentCategoryPageModule' },
-  { path: 'last-category', loadChildren: './last-category/last-category.module#LastCategoryPageModule' },
   { path: '', loadChildren: './menu/menu.module#MenuPageModule' },
 ];
 

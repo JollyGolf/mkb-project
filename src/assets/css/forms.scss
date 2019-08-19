@@ -16,10 +16,10 @@ $font-family-base: 'Montserrat';
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  z-index: 5;
+  // display: flex;
+  // align-items: center;
+  // flex-direction: column;
+  // z-index: 5;
 }
 .column {
   position: absolute;
@@ -39,6 +39,11 @@ $font-family-base: 'Montserrat';
   flex-direction: column;
   z-index: 6;
   padding-top: 50px;
+  
+  background: url('../../assets/bg-icon/002-heartbeat.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
 }
 
 .title-after-img {

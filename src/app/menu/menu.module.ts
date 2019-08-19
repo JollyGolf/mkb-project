@@ -19,6 +19,22 @@ const routes: Routes = [
       { 
         path: 'account', 
         loadChildren: '../account/account.module#AccountPageModule' 
+      },
+      {
+        path: 'category',
+        loadChildren: '../category/category.module#CategoryPageModule'
+      },
+      {
+        path: 'current-category',
+        loadChildren: '../current-category/current-category.module#CurrentCategoryPageModule'
+      },
+      {
+        path: 'last-category',
+        loadChildren: '../last-category/last-category.module#LastCategoryPageModule'
+      },
+      {
+        path: 'illness',
+        loadChildren: '../illness/illness.module#IllnessPageModule'
       }
     ]
   },

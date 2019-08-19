@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
 import { RoutingDataService } from '../services/routing-data.service';
-
-const adds = [1, 2, 3, 4, 5];
+import { UserAuthService } from '../services/user-auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -20,26 +19,35 @@ export class MenuPage implements OnInit, OnDestroy {
       title: 'Аккаунт',
       url: '/account'
     }
+
   ];
 
   selectedPath = '';
   modalFlag: boolean = true;
   advertisementFlag: boolean = false;
-  randomItem: number;
+  advertisment: any;
 
-  constructor(private router: Router, private routerDataProv: RoutingDataService) { 
+  constructor(
+    private router: Router, 
+    private routerDataProv: RoutingDataService,
+    private auth: UserAuthService
+  ) { 
   	this.router.events.subscribe((event: RouterEvent) => {
   	  this.selectedPath = event.url;
   	})
   }
 
   ngOnInit() {
-    if(this.advertisementFlag == false) {
-      this.randomItem = adds[Math.floor(Math.random() * adds.length)];
-      setTimeout(() => {
-        this.modalFlag = false;
-        this.advertisementFlag = true;
-      }, 1000);
+    if(!localStorage.getItem('advFlag')) {
+      this.auth.getAdv();
+      if(this.advertisementFlag == false) {
+        setTimeout(() => {
+          this.advertisment = this.routerDataProv.getAdv();
+          this.modalFlag = false;
+          this.advertisementFlag = true;
+          localStorage.setItem('advFlag', 'true')
+        }, 1000);
+      }
     }
   }
 
@@ -48,8 +56,9 @@ export class MenuPage implements OnInit, OnDestroy {
   }
 
   signOut(){
-    localStorage.removeItem('userToken');
-  	this.router.navigate(['log-in']);
+    localStorage.removeItem('advFlag');
+    //localStorage.removeItem('userToken');
+  	//this.router.navigate(['log-in']);
   }
 
   ngOnDestroy() {

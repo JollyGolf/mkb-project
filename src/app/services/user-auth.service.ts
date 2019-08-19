@@ -5,7 +5,6 @@ import { ConfigService } from './config.service';
 import { ErrorHandlerService } from './error-handler.service';
 import { Router } from '@angular/router';
 import { AlertService } from './alert.service';
-//import { UserInfoService } from './user-info.service';
 import { NavController } from '@ionic/angular';
 import { RoutingDataService } from './routing-data.service';
 
@@ -35,11 +34,11 @@ export class UserAuthService {
       this.alertProv.showAlert('', 'Вы не ввели телефон или пароль!');
     }
     else {
-      console.log('{ Request }: ', data);
+      //console.log('{ Request }: ', data);
       this.loaderProv.showSend();
       this.http.post(this.configProv.apiUrl + "login", data, {headers: head}).subscribe(
         (data: any) => {
-          console.log('{ Response }: ', data);
+          //console.log('{ Response }: ', data);
           this.loaderProv.dismiss();
           localStorage.setItem("userToken", data.body.token);
           this.router.navigateByUrl('/handlbook');
@@ -68,7 +67,7 @@ export class UserAuthService {
       this.alertProv.showAlert('', 'Пароли должны соответствовать! Будьте внимательны!');
     }
     else {
-      console.log('{ Request }: ', data);
+      //console.log('{ Request }: ', data);
       this.loaderProv.showSend();
       this.http.post(this.configProv.apiUrl + "registration", data).subscribe(
         (data: any) => {
@@ -85,18 +84,10 @@ export class UserAuthService {
     }    
   }
 
-//"/^\+380\d{3}\d{2}\d{2}\d{2}$/"
-//   var str = '+38....'; // номер телефона украины
-// str.match(
-
   registrationConfirm( code: string) {
     this.loaderProv.showSend();
     const phone = this.routerDataProv.getData().phone;
       let dataConfirm = { phone, code }
-      console.log('data',
-        this.routerDataProv.getData().phone,
-        this.routerDataProv.getData().password
-      );
       this.http.post(this.configProv.apiUrl + "registration_confirm", dataConfirm).subscribe(
         data => {
           console.log('{ Response }: ', data);
@@ -107,9 +98,43 @@ export class UserAuthService {
           this.loaderProv.dismiss();
           this.errorProv.handleError(err);
         }
-      );
-    
+      ); 
   }
+
+  // sendCode(phone: string) {
+  //   const data = { phone };
+  //   this.http.post(this.configProv.apiUrl + "password_send_code", data).subscribe(
+  //     data => {
+  //       console.log('send', data);
+  //     },
+  //     err => {
+  //       console.log('send error', err);
+  //     }
+  //   );
+  // }
+
+  // checkCode() {
+
+  // }
+
+  // setNewPassword() {
+    
+  // }
+
+  getAdv() {
+    this.loaderProv.showSend();
+    this.http.get(this.configProv.apiUrl + "adv").subscribe(
+      (data: any ) => {
+        this.loaderProv.dismiss();
+        this.routerDataProv.setAdv(data.body[Math.floor(Math.random() * data.body.length)]);
+      },
+      err => {
+        this.loaderProv.dismiss();
+        this.errorProv.handleError(err);
+      }
+    );
+  }
+
 
 
 
