@@ -11,46 +11,49 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class HandbookPage implements OnInit {
 
-   //@ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonInfiniteScroll, null) infiniteScroll: IonInfiniteScroll;
 
-  searchText: string;
+  
   categories: any = 0;
+  limit: number = 10;
+  offset: number = 0;
+
+  searchOffset: number = 0;
+  searchflag: boolean = false;
+  searchLimit: number = 10;
   searchResult: any = 0;
+  searchText: string;
 
   constructor(private router: Router, private db: DatabaseService) { }
 
   ngOnInit() {
+    this.getCategrories();
+  }
+
+  getCategrories() {
     this.db.getDatabaseState().subscribe( ready => {
       if(ready) {
-        this.db.loadClasses(10)
-          .then(data => {
-            this.categories = data;
-            console.log('{Load categories}',data);
-          });
+        this.db.loadClasses(this.limit, this.offset*this.limit).then(data => {
+          this.categories = data;
+        });
       }
     })
   }
 
-  searchBy(value: string) { }
-
   ionChange(value: string) {
-    //console.log(this.data);
+    this.searchText = value;
     if(value == '') {
-      this.db.getDatabaseState().subscribe( ready => {
-        if(ready) {
-          this.db.loadClasses(10).then(data => {
-            this.categories = data;
-            console.log('{Load categories}',data);
-          });
-        }
-      })
+      this.searchflag = false;
+      this.searchOffset = 0;
+      this.getCategrories();
     }
     else {
+      this.searchflag = true;
+      this.offset = 0;
       this.db.getDatabaseState().subscribe( ready => {
         if(ready) {
-          this.db.searchBy(value,10).then(data => {
+          this.db.searchBy(value,this.searchLimit, this.searchLimit*this.offset).then(data => {
             this.categories = data;
-            console.log('{Search by', value,'of', data);
           });
         }
       })
@@ -58,7 +61,6 @@ export class HandbookPage implements OnInit {
   }
 
   openCategory(category) {
-    console.log('{Category code}',category.code);
     if(category.node_count == 0) {
       localStorage.setItem('illness', category.code);
       this.router.navigate(['illness']);
@@ -68,25 +70,32 @@ export class HandbookPage implements OnInit {
       localStorage.setItem('node_count', category.node_count)
   	  this.router.navigate(['category']);
     }
-    
   }  
 
-
-
-  // loadData(event) {
-  //   setTimeout(() => {
-  //     console.log('Infinite scroll - Done');
-  //     event.target.complete();
-
-  //     // App logic to determine if all data is loaded
-  //     // and disable the infinite scroll
-  //     //if (data.length == 1000) {
-  //     if(true) {
-  //       event.target.disabled = true;
-  //     }
-  //   }, 1000);
-  // }
-
-
-
+  loadData(event) {
+    if(this.searchflag){
+      this.searchOffset++;
+      this.offset = 0;
+      this.db.getDatabaseState().subscribe( ready => {
+        if(ready) {
+          this.db.searchBy(this.searchText, this.searchLimit, this.searchLimit*this.searchOffset).then((data: any) => {
+            this.categories = this.categories.concat(data);
+            (data.length == 10) ? event.target.complete() : event.target.complete();
+          });
+        }
+      })
+    } 
+    else {
+      this.offset++;
+      this.searchOffset = 0;
+      this.db.getDatabaseState().subscribe( ready => {
+        if(ready) {
+          this.db.loadClasses(this.limit, this.limit*this.offset).then((data: any) => {
+            this.categories = this.categories.concat(data);
+            (data.length == 10) ? event.target.complete() : event.target.complete();
+          });
+        }
+      })
+    }
+  }
 }

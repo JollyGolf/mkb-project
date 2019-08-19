@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common'; 
 import { DatabaseService } from '../services/database.service';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-category',
@@ -10,27 +11,44 @@ import { DatabaseService } from '../services/database.service';
 })
 export class CategoryPage implements OnInit {
 
-  current_category: string;
-  illnesses: any = 0;
+  @ViewChild(IonInfiniteScroll, null) infiniteScroll: IonInfiniteScroll;
 
-  constructor(private router: Router, private location: Location, private db: DatabaseService) { }
+  current_category: string;
+
+  illnesses: any = 0;
+  limit: number = 10;
+  offset: number = 0;
+
+  searchOffset: number = 0;
+  searchflag: boolean = false;
+  searchLimit: number = 10;
+  searchResult: any = 0;
+  searchText: string;
+
+  constructor(
+    private router: Router, 
+    private location: Location, 
+    private db: DatabaseService
+  ) { }
+
+
 
   ngOnInit() {
+    this.current_category = localStorage.getItem('category');
+    this.getCategroies();
+  }
+
+  getCategroies(){
     this.db.getDatabaseState().subscribe( ready => {
       if(ready) {
-        this.db.loadIllnesses(localStorage.getItem('category'), Number(localStorage.getItem('node_count')))
-          .then(data => {
-            this.illnesses = data;
-            console.log('{Load Illnesses}', data);
-          });
+        this.db.loadIllnesses(localStorage.getItem('category'), this.limit, this.offset*this.limit).then(data => {
+          this.illnesses = data;
+        });
       }
-      else console.log('{Database = false}', ready);
     })
-    this.current_category = localStorage.getItem('category');
   }
 
   openIllness(illness: any){
-    //localStorage.setItem('illness', illness.code)
     if(illness.node_count == 0) {
       localStorage.setItem('illness', illness.code);
       this.router.navigate(['illness']);
@@ -44,25 +62,20 @@ export class CategoryPage implements OnInit {
   }
 
   ionChange(value: string) {
+    this.searchText = value;
     if(value == '') {
-      this.db.getDatabaseState().subscribe( ready => {
-        if(ready) {
-          this.db.loadIllnesses(localStorage.getItem('category'), Number(localStorage.getItem('node_count')))
-            .then(data => {
-              this.illnesses = data;
-              //console.log('{Load Illnesses}', data);
-            });
-        }
-        else console.log('{Database = false}', ready);
-      })
+      this.searchflag = false;
+      this.searchOffset = 0;
+      this.getCategroies();
       this.current_category = localStorage.getItem('category');
     }
     else {
+      this.searchflag = true;
+      this.offset = 0;
       this.db.getDatabaseState().subscribe( ready => {
         if(ready) {
-          this.db.searchByIllnesses(localStorage.getItem('category'),value,10).then(data => {
+          this.db.searchByIllnesses(localStorage.getItem('category'),value,this.searchLimit, this.searchLimit*this.offset).then(data => {
             this.illnesses = data;
-            console.log('{Search by', value,'of', data);
           });
         }
       })
@@ -71,6 +84,42 @@ export class CategoryPage implements OnInit {
 
   back(){
   	this.location.back();
+  }
+
+  loadData(event) {
+    if(this.searchflag){
+      this.searchOffset++;
+      this.offset = 0;
+      this.db.getDatabaseState().subscribe( ready => {
+        if(ready) {
+          this.db.searchByIllnesses(
+            localStorage.getItem('category'),
+            this.searchText,
+            this.searchLimit, 
+            this.searchLimit*this.offset
+          ).then(data => {
+            this.illnesses = this.illnesses.concat(data);
+            (data.length == 10) ? event.target.complete() : event.target.complete();
+          });
+        }
+      })
+    } 
+    else {
+      this.offset++;
+      this.searchOffset = 0;
+      this.db.getDatabaseState().subscribe( ready => {
+        if(ready) {
+          this.db.loadIllnesses(
+            localStorage.getItem('category'), 
+            this.limit, 
+            this.offset*this.limit
+          ).then(data => {
+            this.illnesses = this.illnesses.concat(data);
+            (data.length == 10) ? event.target.complete() : event.target.complete();
+          });
+        }
+      })
+    }
   }
 
 }

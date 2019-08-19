@@ -59,11 +59,10 @@ export class DatabaseService {
     return this.dbReady.asObservable();
   }
 
-  loadClasses(limit: number) {
-    return this.database.executeSql(`SELECT * FROM class_mkb WHERE parent_code IS NULL LIMIT ${limit}`, []).then(data => {
-      //console.log('General LOAD => ', data.rows.item(1));
+  loadClasses(limit: number, offset: number) {
+    return this.database.executeSql(`SELECT * FROM class_mkb WHERE parent_code IS NULL LIMIT ${limit} OFFSET ${offset}`, []).then(data => {
       let classes = [];
- 
+
       if (data.rows.length > 0) {
         for (var i = 0; i < data.rows.length; i++) {
           classes.push({ 
@@ -82,8 +81,8 @@ export class DatabaseService {
     });
   }
 
-  loadIllnesses(parent: string, limit: number) {
-    return this.database.executeSql(`SELECT * FROM class_mkb WHERE parent_code = '${parent}' LIMIT ${limit}`, []).then(data => {
+  loadIllnesses(parent: string, limit: number, offset: number) {
+    return this.database.executeSql(`SELECT * FROM class_mkb WHERE parent_code = '${parent}' LIMIT ${limit} OFFSET ${offset}`, []).then(data => {
       let illnesses = [];
 
       if (data.rows.length > 0) {
@@ -151,8 +150,8 @@ export class DatabaseService {
 // name LIKE '%${key}%' OR
 //`SELECT * FROM class_mkb WHERE parent_code IS NULL and code LIKE '%${key}%' LIMIT ${limit}`
 
-  searchBy(key: string, limit: number){
-    return this.database.executeSql(`SELECT * FROM class_mkb WHERE parent_code IS NULL and code LIKE '%${key}%' OR name LIKE '%${key}%' LIMIT ${limit}`, []).then(data => {
+  searchBy(key: string, limit: number, offset: number){
+    return this.database.executeSql(`SELECT * FROM class_mkb WHERE parent_code IS NULL and code LIKE '%${key}%' OR name LIKE '%${key}%' LIMIT ${limit} OFFSET ${offset}`, []).then(data => {
 
       let classes = [];
       if (data.rows.length > 0) {
@@ -166,8 +165,8 @@ export class DatabaseService {
     });
   }
 
-  searchByIllnesses(parent: string, key, limit: number) {
-    return this.database.executeSql(`SELECT * FROM class_mkb WHERE parent_code = '${parent}' and code LIKE '%${key}%' OR name LIKE '%${key}%' LIMIT ${limit}`, []).then(data => {
+  searchByIllnesses(parent: string, key, limit: number, offset: number) {
+    return this.database.executeSql(`SELECT * FROM class_mkb WHERE parent_code = '${parent}' and code LIKE '%${key}%' OR name LIKE '%${key}%' LIMIT ${limit} OFFSET ${offset}`, []).then(data => {
       let illnesses = [];
 
       if (data.rows.length > 0) {

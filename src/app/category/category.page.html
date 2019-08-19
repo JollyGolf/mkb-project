@@ -37,7 +37,15 @@
   	  <div class="icon-open-illness">
   	    <ion-icon name="arrow-forward"></ion-icon>
   	  </div>
-    </div>
+	</div>
+	
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+		<ion-infinite-scroll-content
+		color="light"
+		loadingSpinner="bubbles"
+		loadingText="Загрузка...">
+		</ion-infinite-scroll-content>
+	  </ion-infinite-scroll>
 
   </div>
 </ion-content>
