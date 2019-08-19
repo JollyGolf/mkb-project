@@ -8,16 +8,16 @@ $grey-color: #7B7B7B;
   flex-direction: row;
   width: 100%;
   height: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
-
 
 ion-title {
   color: white;
   font-family: $font-family-base;
   font-weight: bolder;
   font-size: 14pt;
+  text-align: center;
 }
 
 ion-toolbar {

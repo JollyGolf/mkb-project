@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { DatabaseService } from '../services/database.service';
-import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-handbook',
@@ -13,7 +12,6 @@ export class HandbookPage implements OnInit {
 
   @ViewChild(IonInfiniteScroll, null) infiniteScroll: IonInfiniteScroll;
 
-  
   categories: any = 0;
   limit: number = 10;
   offset: number = 0;
@@ -24,7 +22,10 @@ export class HandbookPage implements OnInit {
   searchResult: any = 0;
   searchText: string;
 
-  constructor(private router: Router, private db: DatabaseService) { }
+  constructor(
+    private router: Router, 
+    private db: DatabaseService
+  ) { }
 
   ngOnInit() {
     this.getCategrories();

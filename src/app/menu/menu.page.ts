@@ -35,7 +35,7 @@ export class MenuPage implements OnInit, OnDestroy {
   	this.router.events.subscribe((event: RouterEvent) => {
   	  this.selectedPath = event.url;
   	})
-  }
+  } 
 
   ngOnInit() {
     if(!localStorage.getItem('advFlag')) {

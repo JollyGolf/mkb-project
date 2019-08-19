@@ -14,18 +14,20 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    private router: Router
+    private router: Router,
+    private statusBar: StatusBar
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#112D36');
     this.platform.ready().then(() => {
-      this.router.navigate(['handlbook']);
-      //localStorage.getItem('userToken') ? this.router.navigate(['handlbook']) : this.router.navigate(['log-in']);
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+    this.router.navigate(['handlbook']);
+    //localStorage.getItem('userToken') ? this.router.navigate(['handlbook']) : this.router.navigate(['log-in']);
+    this.statusBar.styleDefault();
+    this.splashScreen.hide();
     });
   }
 }

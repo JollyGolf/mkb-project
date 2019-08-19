@@ -31,8 +31,6 @@ export class CategoryPage implements OnInit {
     private db: DatabaseService
   ) { }
 
-
-
   ngOnInit() {
     this.current_category = localStorage.getItem('category');
     this.getCategroies();
