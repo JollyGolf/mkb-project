@@ -84,8 +84,8 @@
       "cordova-plugin-fullscreen": {}
     },
     "platforms": [
-      "android",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }
