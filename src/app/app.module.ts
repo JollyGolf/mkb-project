@@ -15,8 +15,10 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { DatabaseService } from './services/database.service';
 
+import { HeaderComponent } from './header/header.component';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeaderComponent],
   entryComponents: [],
   imports: [
     BrowserModule, 

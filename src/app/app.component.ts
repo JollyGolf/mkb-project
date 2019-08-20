@@ -26,7 +26,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
     this.router.navigate(['handlbook']);
     //localStorage.getItem('userToken') ? this.router.navigate(['handlbook']) : this.router.navigate(['log-in']);
-    this.statusBar.styleDefault();
+    this.statusBar.styleLightContent();
     this.splashScreen.hide();
     });
   }
