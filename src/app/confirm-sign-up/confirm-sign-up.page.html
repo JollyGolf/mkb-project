@@ -15,7 +15,14 @@
   	  <ion-input class="custom-input" [(ngModel)]="code"></ion-input>
 	  </div>
 
-    <div class="issue-button" margin>Не приходит СМС?</div>
+	<!-- <div class="issue-button" margin>Не приходит СМС?</div> -->
+	<ion-item 
+	  class="issue-button-resend" 
+	  margin 
+	  disabled="{{resendFlag}}" 
+	  (click)="resendCode()" 
+	  lines="none"
+	>Не приходит СМС?</ion-item>
 
 	  <button margin class="button button-login" (click)="toggle()">ДАЛЕЕ</button>
 	</div>

@@ -9,7 +9,9 @@
   	  	<div class="wrapper-for-items">
   	  	  <ion-menu-toggle auto-hide="false" *ngFor="let page of pages" class="menu-button">
   	  	    <ion-row class="wrapped-menu-item" [routerLink]="page.url" routerDirection="root" [class.active-item]="selectedPath === page.url">
-  	  	  	  <img src="../../assets/bg-icon/0{{ page.url == '/account' ? '17-user-2' : '14-bookmark'}}.png" class="{{ page.url == '/account' ? 'user' : 'bookmark'}}-icon">
+			  <img 
+				src="../../assets/bg-icon/0{{ page.url == '/handbook' ? '14-bookmark' : '17-user-2'}}.png" 
+				class="{{ page.url == '/handbook' ? 'bookmark' : 'user' }}-icon">
   	  	  	  <div class="title-menu-item">
   	  	  	    {{ page.title }}
   	  	      </div>
@@ -34,7 +36,7 @@
           <ion-icon name="close" class="modal-icon" (click)="closeModal()"></ion-icon>
         </div>
         <div *ngIf="advertisment" class="modal-title">{{advertisment.name}}</div>
-        <img *ngIf="advertisment" src="{{advertisment.image}}" class="modal-img">
+        <img *ngIf="advertisment" src="{{advertisment.image}}" class="modal-img" (click)="openAdv()">
         <div *ngIf="advertisment" class="modal-description">{{advertisment.description}}</div>
       </div>
     </div>

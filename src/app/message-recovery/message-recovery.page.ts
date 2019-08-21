@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common'; 
+import { UserAuthService } from '../services/user-auth.service';
+import { RoutingDataService } from '../services/routing-data.service';
 
 @Component({
   selector: 'app-message-recovery',
@@ -9,16 +11,31 @@ import { Location } from '@angular/common';
 })
 export class MessageRecoveryPage implements OnInit {
 
-  constructor(private router: Router, private location: Location) { }
+  code: string = '';
+  resendFlag: string = "true";
 
-  ngOnInit() {
+  constructor(
+    private router: Router, 
+    private location: Location,
+    private auth: UserAuthService,
+    private routerDataProv: RoutingDataService
+  ) { }
+
+  ngOnInit() { this.setActive() }
+
+  back() { this.location.back() }
+
+  resendCode(){
+    this.resendFlag = "true";
+    this.auth.resendCode();
+    this.setActive();
   }
 
-  back() {
-  	this.location.back()
+  setActive() {
+    setTimeout(() => {
+      this.resendFlag = "false";
+    }, 3000);
   }
 
-  toggle(){
-  	this.router.navigate(['new-password-recovery']);
-  }
+  toggle(){ this.auth.checkCode(this.code) }
 }

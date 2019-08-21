@@ -24,7 +24,8 @@ export class AppComponent {
     this.statusBar.overlaysWebView(true);
     this.statusBar.backgroundColorByHexString('#112D36');
     this.platform.ready().then(() => {
-    this.router.navigate(['handlbook']);
+    //this.router.navigate(['handlbook']);
+    this.router.navigate(['start']);
     //localStorage.getItem('userToken') ? this.router.navigate(['handlbook']) : this.router.navigate(['log-in']);
     this.statusBar.styleLightContent();
     this.splashScreen.hide();

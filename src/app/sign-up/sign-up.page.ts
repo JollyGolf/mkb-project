@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common'; 
-//import { DatabaseService } from '../services/database.service';
 import { UserAuthService } from '../services/user-auth.service';
 
 @Component({
@@ -16,28 +15,19 @@ export class SignUpPage implements OnInit {
     password: '',
     password_confirm: '',
     name: ''
-  }
+  };
 
   constructor(
-    private router: Router, 
     private location: Location, 
-    //private db: DatabaseService,
     private auth: UserAuthService
   ) { }
 
-  ngOnInit() {
-    // this.db.getDatabaseState().subscribe( ready => {
-    //   console.log('database ready:', ready);
-    // })
-  }
+  ngOnInit() { }
 
-  signUp() {
-    this.auth.registration(this.data);
-  }
+  signUp() { this.auth.registration(this.data) }
+
   
-  back(){
-  	//this.router.navigate(['log-in']);
-    this.location.back()
-  }
+  
+  back(){ this.location.back() }
 
 }

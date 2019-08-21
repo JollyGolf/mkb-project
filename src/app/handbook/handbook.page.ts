@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { DatabaseService } from '../services/database.service';
 
+import { LoaderService } from '../services/loader.service';
+
 @Component({
   selector: 'app-handbook',
   templateUrl: './handbook.page.html',
@@ -24,6 +26,7 @@ export class HandbookPage implements OnInit {
 
   constructor(
     private router: Router, 
+    private loaderProv: LoaderService,
     private db: DatabaseService
   ) { }
 
@@ -32,9 +35,11 @@ export class HandbookPage implements OnInit {
   }
 
   getCategrories() {
+    this.loaderProv.showReq();
     this.db.getDatabaseState().subscribe( ready => {
       if(ready) {
         this.db.loadClasses(this.limit, this.offset*this.limit).then(data => {
+          this.loaderProv.dismiss();
           this.categories = data;
         });
       }

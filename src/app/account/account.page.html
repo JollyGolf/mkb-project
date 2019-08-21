@@ -13,48 +13,36 @@
 </ion-header>
 
 <ion-content>
-  <div class="wrapper-for-content">
+  <div class="wrapper-for-content" *ngIf="username">
   	<div class="wrapper-for-data">
-  	  <div class="username">Maxim</div>
+  	  <div class="username" *ngIf="username">{{username}}</div>
   	  <img src="../../assets/bg-icon/003-health.png">
   	  <div class="wrapper-for-points">
-  	  	<div class="count-point">75</div>
+  	  	<div class="count-point">{{total}}</div>
   	    <div class="title-point">Баллов</div>
   	  </div>
   	</div>
   	<div class="wrapper-for-history">
   	  <div class="title-history">История</div>
 
-  	  <div class="item-of-history">
+  	  <div class="item-of-history" *ngFor="let point of points">
   	  	<div class="wrapper-for-points-data">
   	      <div class="date-and-points">
-  	        <div class="date">05.06.19</div>
-  	        <div class="points">+25</div>
+  	        <div class="date">
+			  {{point.date.slice(8, 10)}}.{{point.date.slice(5, 7)}}.{{point.date.slice(0, 4)}}
+			</div>
+			<div class="date">
+			  {{point.date.slice(11, 19)}}
+			</div>
+			<div class="points">
+			  <div class="add-point">+{{point.added}}</div>
+			  <div class="rm-point">-{{point.removed}}</div>
+			</div>
   	      </div>
-  	      <div class="current-points">75</div>
+  	      <div class="current-points">{{point.total}}</div>
   	  	</div>
   	  </div>
 
-  	  <div class="item-of-history">
-  	  	<div class="wrapper-for-points-data">
-  	      <div class="date-and-points">
-  	        <div class="date">05.06.19</div>
-  	        <div class="points">+25</div>
-  	      </div>
-  	      <div class="current-points">50</div>
-  	  	</div>
-  	  </div>
-
-  	  <div class="item-of-history">
-  	  	<div class="wrapper-for-points-data">
-  	      <div class="date-and-points">
-  	        <div class="date">05.06.19</div>
-  	        <div class="points">+25</div>
-  	      </div>
-  	      <div class="current-points">25</div>
-  	  	</div>
-  	  </div>
-
-  	</div>
+	</div>
   </div>
 </ion-content>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common'; 
+import { UserAuthService } from '../services/user-auth.service';
 
 @Component({
   selector: 'app-new-password-recovery',
@@ -9,17 +10,21 @@ import { Location } from '@angular/common';
 })
 export class NewPasswordRecoveryPage implements OnInit {
 
-  constructor(private router: Router, private location: Location) { }
-
-  ngOnInit() {
+  data: any = {
+    password: '',
+    password_confirm: '',
   }
 
-  back() {
-  	this.location.back()
-  }
+  constructor(
+    private router: Router, 
+    private location: Location,
+    private auth: UserAuthService
+  ) { }
 
-  toggle(){
-  	this.router.navigate(['handbook']);
-  }
+  ngOnInit(){ }
+
+  back(){ this.location.back() }
+
+  toggle(){ this.auth.updatePassword(this.data.password, this.data.password_confirm) }
 
 }

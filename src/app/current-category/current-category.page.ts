@@ -7,7 +7,7 @@ import { IonInfiniteScroll } from '@ionic/angular';
 @Component({
   selector: 'app-current-category',
   templateUrl: './current-category.page.html',
-  styleUrls: ['../category/category.page.scss'],
+  styleUrls: ['../category/category.page.scss', './current-category.page.scss'],
 })
 export class CurrentCategoryPage implements OnInit {
 

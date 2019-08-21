@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap&subset=cyrillic');
+$light-blue-color: #60DAFF;
+$grey-color: #7B7B7B;
+$font-family-base: 'Montserrat';
+
 .title-after-img {
   margin: 0 auto;
   width: 70%;
@@ -12,7 +17,18 @@
   margin-bottom: 25px;
 }
 
-.issue-button {
-  font-weight: 300;
-  margin-bottom: 25px;
+.issue-button-resend {
+  color: white;
+  font-weight: normal;
+  font-size: 9pt;
+  text-decoration: underline;
+  font-family: $font-family-base;
+  --background: transparent;
+  --border: none !important;
+  outline: none;
+  min-height: 5px;
+}
+
+.issue-button-resend:active {
+  --background: transparent;
 }

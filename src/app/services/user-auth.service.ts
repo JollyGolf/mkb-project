@@ -34,11 +34,9 @@ export class UserAuthService {
       this.alertProv.showAlert('', 'Вы не ввели телефон или пароль!');
     }
     else {
-      //console.log('{ Request }: ', data);
       this.loaderProv.showSend();
       this.http.post(this.configProv.apiUrl + "login", data, {headers: head}).subscribe(
         (data: any) => {
-          //console.log('{ Response }: ', data);
           this.loaderProv.dismiss();
           localStorage.setItem("userToken", data.body.token);
           this.router.navigateByUrl('/handlbook');
@@ -60,19 +58,20 @@ export class UserAuthService {
     // else if(!phone.match("^\+380\d{7}$")){
     //   this.alertProv.showAlert('', 'Неправильный тип номера телефона');
     // }
-    else if(password.length < 4) {
+    else if(password.length < 3) {
       this.alertProv.showAlert('', 'Пароль слишком короткий');
     }
     else if(password !== password_confirm) {
       this.alertProv.showAlert('', 'Пароли должны соответствовать! Будьте внимательны!');
     }
     else {
-      //console.log('{ Request }: ', data);
       this.loaderProv.showSend();
+      
       this.http.post(this.configProv.apiUrl + "registration", data).subscribe(
         (data: any) => {
           console.log('{ Response }: ', data);
           this.loaderProv.dismiss();
+          this.routerDataProv.setSignupData({ phone });
           this.routerDataProv.setData({ phone, password });
           this.router.navigateByUrl('/confirm-sign-up');
         },
@@ -84,9 +83,27 @@ export class UserAuthService {
     }    
   }
 
-  registrationConfirm( code: string) {
+  registrationResendCode(){
     this.loaderProv.showSend();
-    const phone = this.routerDataProv.getData().phone;
+    this.http.post(this.configProv.apiUrl + "registrationCode", this.routerDataProv.getSignupData()).subscribe(
+      (data: any) => {
+        console.log('Resend:', data);
+        this.loaderProv.dismiss();
+      },
+      err => {
+        this.loaderProv.dismiss();
+        this.errorProv.handleError(err);
+      }
+    );     
+  }
+
+  registrationConfirm(code: string) {
+    if(code == ''){
+      this.alertProv.showAlert('', 'Введите код. Поле не должно быть пустое!');
+    }
+    else {
+      this.loaderProv.showSend();
+      const phone = this.routerDataProv.getData().phone;
       let dataConfirm = { phone, code }
       this.http.post(this.configProv.apiUrl + "registration_confirm", dataConfirm).subscribe(
         data => {
@@ -99,28 +116,92 @@ export class UserAuthService {
           this.errorProv.handleError(err);
         }
       ); 
+    }
   }
 
-  // sendCode(phone: string) {
-  //   const data = { phone };
-  //   this.http.post(this.configProv.apiUrl + "password_send_code", data).subscribe(
-  //     data => {
-  //       console.log('send', data);
-  //     },
-  //     err => {
-  //       console.log('send error', err);
-  //     }
-  //   );
-  // }
+  sendCode(data: any) {
+    let { phone } = data;
+    this.loaderProv.showSend();
+    this.http.post(this.configProv.apiUrl + "password_send_code", data).subscribe(
+      (data: any) => {
+        this.loaderProv.dismiss();
+        console.log('send', data);
+        this.routerDataProv.setData(phone);
+        this.router.navigate(['message-recovery']);
+      },
+      err => {
+        this.loaderProv.dismiss();
+        this.errorProv.handleError(err);
+      }
+    );
+  }
 
-  // checkCode() {
+  resendCode() {
+    let data = { phone: this.routerDataProv.getData() };
+    this.loaderProv.showSend();
+    this.http.post(this.configProv.apiUrl + "password_send_code", data).subscribe(
+      (data: any) => {
+        this.loaderProv.dismiss();
+        console.log('resend', data);
+      },
+      err => {
+        this.loaderProv.dismiss();
+        this.errorProv.handleError(err);
+      }
+    );
+  }
 
-  // }
+  checkCode(code: string) {
+    const data = {  
+      phone: this.routerDataProv.getData(),
+      code
+    };
+    this.loaderProv.showSend();
+    this.http.post(this.configProv.apiUrl + "password_check_code", data).subscribe(
+      data => {
+        this.loaderProv.dismiss();
+        console.log('Success => ', data);
+        this.router.navigate(['new-password-recovery']);
+      },
+      err => {
+        this.loaderProv.dismiss();
+        this.errorProv.handleError(err);
+      }
+    );
+  }
 
-  // setNewPassword() {
-    
-  // }
-
+  updatePassword(password: string, password_confirm: string) {
+    if(password == '' || password_confirm == '') {
+      this.alertProv.showAlert('','Все поля должны быть заполнены!');
+    }
+    else if (password.length < 3){
+      this.alertProv.showAlert('','Пароль слишком короткий!');
+    }
+    else if(password !== password_confirm){
+      this.alertProv.showAlert('','Пароли должны совпадать!');
+    }
+    else {
+      const data = { 
+        phone: this.routerDataProv.getData(),
+        password, 
+        password_confirm 
+      };
+      this.loaderProv.showSend();
+      this.http.put(this.configProv.apiUrl + "password", data).subscribe(
+        data => {
+          this.loaderProv.dismiss();
+          this.alertProv.showAlert('Успех','Пароль изменен!');
+          console.log('update', data);
+          this.router.navigate(['log-in']);
+        },
+        err => {
+          this.loaderProv.dismiss();
+          this.errorProv.handleError(err);
+        }
+      );
+    }
+  }
+  
   getAdv() {
     this.loaderProv.showSend();
     this.http.get(this.configProv.apiUrl + "adv").subscribe(
@@ -135,54 +216,38 @@ export class UserAuthService {
     );
   }
 
+  getInfo(index: number) {
+    const head = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'token': localStorage.getItem('userToken')
+    }
+    this.loaderProv.showReq();
+    this.http.get(this.configProv.apiUrl+"user?page="+index, {headers: head}).subscribe(
+      (data: any) => this.routerDataProv.setUser(data.body),
+      err => {
+        this.loaderProv.dismiss();
+        this.errorProv.handleError(err);
+      }
+    ); 
+  }
 
-
-
-
-//   changePassword(data){
-//     this.loaderProv.showSend();
-//     const head = {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     }
-//     this.http.put(this.configProv.apiUrl + "recoveryPassword",data, {headers: head}).subscribe(
-//       data => {
-//         this.loaderProv.dismiss();
-//         this.alertProv.showAlert('Успех','Пароль изменен!');
-//         this.navCtrl.pop();
-//       },
-//       err => {
-//         this.loaderProv.dismiss();
-//         this.errorProv.handleError(err);
-//       }
-//     );
-//   }
-
-//   logout(){
-//     const userData = JSON.parse(localStorage.getItem("driverInfo"));
-//     if(userData && userData['access_token']){
-//       this.loaderProv.showSend();
-//       const head = {
-//         'Authorization': `${userData['token_type']} ${userData['access_token']}`,
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json'
-//       }
-//       this.http.post(this.configProv.apiUrl + "drivers/logout", null, {headers: head}).subscribe(
-//         data => {
-//           this.loaderProv.dismiss();
-//           localStorage.removeItem("driverInfo");
-//           this.router.navigateByUrl('/login');
-//         },
-//         err => {
-//           this.loaderProv.dismiss();
-//           this.errorProv.handleError(err);
-//         }
-//       );
-//     } else {
-//       localStorage.removeItem("driverInfo");
-//       this.alertProv.showAlert('Ошибка!', 'Токен авторизации не найден. Необходимо перезайти в аккаунт!');
-//       this.router.navigateByUrl('/login');
-//     }
-
-//   }
+  logout() {
+    const data = { token: localStorage.getItem('userToken') };
+    this.loaderProv.showSend();
+    this.http.put(this.configProv.apiUrl + "logout", data).subscribe(
+      data => {
+        this.loaderProv.dismiss();
+        console.log('logout', data);
+        localStorage.removeItem('advFlag');
+        localStorage.removeItem('userToken');
+        localStorage.removeItem('userInfo');
+        this.router.navigate(['log-in']);
+      },
+      err => {
+        this.loaderProv.dismiss();
+        this.errorProv.handleError(err);
+      }
+    );
+  }
 }

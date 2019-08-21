@@ -11,6 +11,7 @@ import { UserAuthService } from '../services/user-auth.service';
 export class ConfirmSignUpPage implements OnInit {
 
   code: string = '';
+  resendFlag: string = "true";
 
   constructor(
     private router: Router, 
@@ -18,15 +19,22 @@ export class ConfirmSignUpPage implements OnInit {
     private auth: UserAuthService
   ) { }
 
-  ngOnInit() {
-    
+  ngOnInit() { this.setActive() }
+
+  toggle(){ this.auth.registrationConfirm(this.code) }
+
+  resendCode(){
+    this.resendFlag = "true";
+    this.auth.registrationResendCode();
+    console.log('Resend');
+    this.setActive();
   }
 
-  toggle(){
-    this.auth.registrationConfirm(this.code);
+  setActive() {
+    setTimeout(() => {
+      this.resendFlag = "false";
+    }, 3000);
   }
 
-  back(){
-    this.location.back()
-  }
+  back(){ this.location.back() }
 }

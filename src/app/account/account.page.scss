@@ -50,8 +50,12 @@ ion-title {
   font-weight: 700;
 }
 
+ion-content {
+  --background: linear-gradient(180deg, #061013, #012936);
+}
+
 .wrapper-for-content {
-  background: linear-gradient(180deg, #061013, #012936);
+  //background: linear-gradient(180deg, #061013, #012936);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -73,6 +77,7 @@ ion-title {
   font-family: $font-family-base;
   font-size: 12pt;
   font-weight: 600;
+  margin: 5px;
 }
 
 .count-point {
@@ -123,8 +128,10 @@ ion-title {
   align-items: flex-start;
 }
 .date, .points {
-  margin: 8px;
+  margin: 3px;
 }
+
+
 
 .date {
   font-size: 9pt;
@@ -134,10 +141,16 @@ ion-title {
 }
 
 .points {
+  display: flex;
+  flex-direction: row;
+}
+
+.add-point, .rm-point {
   font-size: 11pt;
   font-weight: 400;
   color: $light-blue-color;
   font-family: $font-family-base;
+  margin-right: 5px;
 }
 
 .current-points {

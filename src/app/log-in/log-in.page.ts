@@ -9,7 +9,7 @@ import { UserAuthService } from '../services/user-auth.service';
 })
 export class LogInPage implements OnInit {
 
-  data: object = {
+  data: any = {
     phone: '',
     password: ''
   }
@@ -19,20 +19,13 @@ export class LogInPage implements OnInit {
     private auth: UserAuthService
   ) { }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
 
-  logIn() {
-    console.log('log-in-page.ts', this.data);
-    this.auth.login(this.data);
-  }
-
-  signUp() {
-    //this.db.signup(this.data);
-  }
+  logIn() { this.auth.login(this.data) }
 
   toggle(page: string){
+    this.data.phone = '';
+    this.data.password = '';
   	this.router.navigate([page]);
   }
 }

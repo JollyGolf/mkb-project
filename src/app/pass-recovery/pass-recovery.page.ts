@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common'; 
+import { UserAuthService } from '../services/user-auth.service';
 
 @Component({
   selector: 'app-pass-recovery',
@@ -8,17 +9,20 @@ import { Location } from '@angular/common';
   styleUrls: ['../../assets/css/forms.scss', './pass-recovery.page.scss'],
 })
 export class PassRecoveryPage implements OnInit {
-
-  constructor(private router: Router, private location: Location) { }
-
-  ngOnInit() {
+  
+  data: object = {
+    phone: ''
   }
 
-  back() {
-  	this.location.back()
-  }
+  constructor(
+    private router: Router, 
+    private location: Location,
+    private auth: UserAuthService
+  ) { }
 
-  toggle(){
-  	this.router.navigate(['message-recovery']);
-  }
+  ngOnInit() {}
+
+  back() { this.location.back(); }
+
+  toggle(){ this.auth.sendCode(this.data); }
 }

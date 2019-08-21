@@ -22,7 +22,8 @@ $grey-color: #7B7B7B;
 .custom-input {
   --background-color: rgba(0, 0, 255, 0.5);
   --border: none;
-  color: white;
+  //color: white;
+  color: black;
   font-weight: 500;
   font-size: 12pt;
   border-bottom: 2px solid $grey-color;
@@ -63,11 +64,11 @@ ion-buttons {
 }
 
 ion-content {
-  --background: linear-gradient(180deg, #061013, #012936);
+  //--background: linear-gradient(180deg, #061013, #012936);
+  --background: #F4EBDA;
 }
 
 .wrapper-for-illnesses {
-  //background: linear-gradient(180deg, #061013, #012936);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -110,14 +111,16 @@ ion-content {
 
 .title-illness {
   font-family: $font-family-base;
-  color: white;
+  //color: white;
+  color: dimgrey;
   font-weight: bolder;
   margin: 5px;
 }
 
 .description-illness {
   font-family: $font-family-base;
-  color: white;
+  //color: white;
+  color: black;
   font-size: 9pt;
   font-weight: 300;
   margin: 5px;

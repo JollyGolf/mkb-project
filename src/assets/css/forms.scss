@@ -3,8 +3,11 @@ $light-blue-color: #60DAFF;
 $grey-color: #7B7B7B;
 $font-family-base: 'Montserrat';
 
+//#F1E8D7
+
 .page {
-  --background: linear-gradient(45deg, #112D36, #012936);
+  //--background: linear-gradient(45deg, #112D36, #012936);
+  --background: #F4EBDA;
   width: 100%;
   height: 100%;
 }
@@ -16,10 +19,6 @@ $font-family-base: 'Montserrat';
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
-  // display: flex;
-  // align-items: center;
-  // flex-direction: column;
-  // z-index: 5;
 }
 .column {
   position: absolute;
@@ -48,10 +47,21 @@ $font-family-base: 'Montserrat';
 
 .title-after-img {
   font-weight: bold;
-  color: white;
+  //color: white;
+  color: dimgray;
   font-size: 13pt;
   font-family: $font-family-base;
 }
+/* new style for bad theme => */
+.fake-div {
+  height: 150px;;
+}
+
+.button-login {
+  margin-top: 15px;
+  outline: none !important;
+}
+/* <= new style for bad theme */
 
 .custom-label {
   color: $grey-color;

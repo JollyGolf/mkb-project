@@ -14,6 +14,7 @@ $grey-color: #7B7B7B;
 
 ion-title {
   color: white;
+  //color:dimgray;
   font-family: $font-family-base;
   font-weight: bolder;
   font-size: 14pt;
@@ -33,7 +34,8 @@ ion-toolbar {
 }
   
 ion-content {
-  --background: linear-gradient(180deg, #061013, #012936);
+  //--background: linear-gradient(180deg, #061013, #012936);
+  --background: #F4EBDA;
 }
   
   .wrapper-for-content {
@@ -51,7 +53,8 @@ ion-content {
   }
   
   .text {
-    color: white;
+    //color: white;
+    color: black;
     font-family: $font-family-base;
     font-size: 12pt;
   }

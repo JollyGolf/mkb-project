@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatabaseService } from './services/database.service';
 
 import { HeaderComponent } from './header/header.component';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -32,7 +33,8 @@ import { HeaderComponent } from './header/header.component';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     SQLite,
     SQLitePorter,
-    DatabaseService
+    DatabaseService,
+    InAppBrowser
   ],
   bootstrap: [AppComponent]
 })

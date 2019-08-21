@@ -10,13 +10,19 @@
       <ion-icon name="arrow-back" class="fake-icon-arrow"></ion-icon>
   	</ion-row>
 
-	  <div class="wrapper-for-input">
+	<div class="wrapper-for-input">
   	  <ion-label position="fixed" class="custom-label">Введите код из СМС</ion-label>
-  	  <ion-input class="custom-input"></ion-input>
-	  </div>
+  	  <ion-input class="custom-input" [(ngModel)]="code"></ion-input>
+	</div>
 
-    <div class="issue-button" margin>Не приходит СМС?</div>
+	<ion-item 
+	  class="issue-button-resend" 
+	  margin 
+	  disabled="{{resendFlag}}" 
+	  (click)="resendCode()" 
+	  lines="none"
+	>Не приходит СМС?</ion-item>
 	
-	  <button margin class="button button-login" (click)="toggle()">ДАЛЕЕ</button>
+	<button margin class="button button-login" (click)="toggle()">ДАЛЕЕ</button>
   </ion-row>
 </ion-content>
